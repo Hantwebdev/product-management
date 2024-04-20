@@ -1,11 +1,11 @@
 const Product = require("../../models/product.model");
 
 const systemConfig = require("../../config/system");
-
+const ProductCategory = require("../../models/product-category.model");
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
-
+const createTreeHelper = require("../../helpers/createTree");
 // [GET] /admin/products
 
 module.exports.index = async (req, res) => {
@@ -36,9 +36,20 @@ module.exports.index = async (req, res) => {
         req.query,
         countProducts
     );
+    // End Pagination
 
+    // Sort
+    let sort = {};
+
+    if(req.query.sortKey && req.query.sortValue){
+        sort[req.query.sortKey] = req.query.sortValue;
+    } else {
+        sort.position = "desc";
+    }
+
+    // End Sort
     const products = await Product.find(find)
-        .sort({ position: "desc"})
+        .sort(sort)
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skip);
 
@@ -134,8 +145,16 @@ module.exports.deleteItem = async (req, res) => {
 // [GET] /admin/products/create
 
 module.exports.create = async (req, res) => {
+    let find = {
+        deleted: false
+    };
+
+    const category = await ProductCategory.find(find);
+
+    const newCategory = createTreeHelper.tree(category);
     res.render("admin/pages/products/create", {
         pageTitle: "Thêm mới sản phẩm",
+        category: newCategory
     });
 };
 
@@ -176,9 +195,16 @@ module.exports.edit = async (req, res) => {
     
         const product = await Product.findOne(find);
     
+        const category = await ProductCategory.find({
+            deleted: false
+        });
+    
+        const newCategory = createTreeHelper.tree(category);
+    
         res.render("admin/pages/products/edit", {
             pageTitle: "Chỉnh sửa sản phẩm",
-            product: product
+            product: product,
+            category: newCategory
         });
     } catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/products`);
