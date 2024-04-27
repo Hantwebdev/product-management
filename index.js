@@ -6,6 +6,10 @@ const flash = require('express-flash');
 const moment = require('moment');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const http = require('http');
+const { Server } = require("socket.io");
+
+
 require("dotenv").config();
 
 const database = require("./config/database");
@@ -21,6 +25,12 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(methodOverride("_method"));
+
+// SocketIO
+const server = http.createServer(app);
+const io = new Server(server);
+global._io = io;
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -47,7 +57,12 @@ app.use(express.static(`${__dirname}/public`));
 //Routes
 route(app);
 routeAdmin(app);
+app.get("*", (req, res) => {
+    res.render("client/pages/errors/404", {
+        pageTitle: "404 Not Found",
+    });
+});
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
