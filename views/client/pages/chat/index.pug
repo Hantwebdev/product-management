@@ -3,6 +3,8 @@ include ../../mixins/box-head.pug
 
 block main  
     .container.my-3 
+        include ../../partials/list-btn-users.pug
+
         .row 
             .col-12 
                 +box-head("Chat")
@@ -14,7 +16,7 @@ block main
                         each chat in chats
                             div(class=(chat.user_id == user.id ? "inner-outgoing" : "inner-incoming"))
                                 if(chat.user_id != user.id)
-                                    .inner-name #{chat.infoUser.fullName}
+                                    .inner-name #{chat.fullName}
                                 if(chat.content)
                                     .inner-content 
                                         | #{chat.content}
@@ -55,3 +57,6 @@ block main
 
     div(class="tooltip" role="tooltip")
         emoji-picker(class="light")
+
+block script 
+    script(type="module" src="/js/chat.js")

@@ -71,6 +71,9 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     body.insertBefore(div, boxTyping);
 
     body.scrollTop = body.scrollHeight;
+
+    // Preview Images
+    const gallery = new Viewer(div);
 });
 // End SERVER_RETURN_MESSAGE
 
@@ -141,7 +144,6 @@ const elementListTyping = document.querySelector(".chat .inner-list-typing");
 
 if(elementListTyping) {
     socket.on("SERVER_RETURN_TYPING", (data) => {
-        console.log(data);
         if(data.type == "show"){
             const bodyChat = document.querySelector(".chat .inner-body");
             const existTyping = elementListTyping.querySelector(`[user-id="${data.userId}"]`);
@@ -173,3 +175,11 @@ if(elementListTyping) {
     })
 }
 // End SERVER_RETURN_TYPING
+
+// Preview Full Img
+const bodyChatPreviewImage = document.querySelector(".chat .inner-body");
+if(bodyChatPreviewImage){
+    const gallery = new Viewer(bodyChatPreviewImage);
+}
+// End Preview Full Img
+

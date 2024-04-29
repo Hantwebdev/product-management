@@ -1,52 +1,18 @@
 const Chat = require("../../models/chat.model");
 const User = require("../../models/user.model");
 
-const uploadToCloudinary = require("../../helpers/uploadToCloudinary");
-
-// [GET] /chat
+const chatSocket = require("../../sockets/client/chat.socket");
+// [GET] /chat/:roomChatId
 module.exports.index = async (req, res) => {
-    const userId = res.locals.user.id;
-    const fullName = res.locals.user.fullName;
+    const roomChatId = req.params.roomChatId;
 
     // SocketIO
-    _io.once('connection', (socket) => {
-        socket.on("CLIENT_SEND_MESSAGE", async (data) => {
-            let images = [];
-            for (const imageBuffer of data.images) {
-                const link = await uploadToCloudinary(imageBuffer);
-                images.push(link);
-            }
-            // Luu vao db
-            const chat = new Chat({
-                user_id: userId,
-                content: data.content,
-                images: images,
-            });
-            await chat.save();
-
-            // Tra data ve client
-            _io.emit("SERVER_RETURN_MESSAGE", {
-                userId: userId,
-                fullName: fullName,
-                content: data.content,
-                images: images 
-            });
-        });
-
-        // Typing
-        socket.on("CLIENT_SEND_TYPING", async (type) => {
-            socket.broadcast.emit("SERVER_RETURN_TYPING", {
-                userId: userId,
-                fullName: fullName,
-                type: type
-            });
-        });
-        // End Typing
-    });
-    //  end SocketIO
+    chatSocket(req, res);
+    // End SocketIO
 
     // Lay data tu db
     const chats = await Chat.find({
+        room_chat_id: roomChatId,
         deleted: false
     });
     for (const chat of chats) {
