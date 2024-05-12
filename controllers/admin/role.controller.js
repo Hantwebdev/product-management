@@ -1,4 +1,5 @@
 const Role = require("../../models/role.model");
+const Account = require("../../models/account.model");
 const systemConfig = require("../../config/system");
 
 // [GET] /admin/roles
@@ -14,7 +15,33 @@ module.exports.index = async (req, res) => {
      pageTitle: "Trang nhóm quyền",
      records: records
     });
-   };
+};
+
+// [GET] /admin/detail/:id
+
+module.exports.detail = async (req, res) => {
+    const id = req.params.id;
+    
+    let find = {
+        deleted: false,
+        _id: id
+    };
+
+    const record = await Role.findOne(find);
+
+    let findAccounts = {
+        deleted: false,
+        role_id: id
+    }
+
+    const accounts = await Account.find(findAccounts);
+
+    res.render("admin/pages/roles/detail", {
+        pageTitle: "Chi tiết nhóm quyền",
+        record: record,
+        accounts: accounts
+    });
+};
    
 
 // [GET] /admin/roles/create

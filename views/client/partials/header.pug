@@ -2,8 +2,8 @@ include ../mixins/sub-menu.pug
 
 header.header
     .container
-        .row.align-items-center 
-            .col-2 
+        .row.align-items-center.row-content 
+            .col-1 
                 .inner-logo 
                     a(href="/")
                         img(src=settingGeneral.logo, alt=settingGeneral.websiteName)
@@ -16,17 +16,17 @@ header.header
                     div(class="form-group d-flex mb-0")
                         input(
                             type="text"
-                            placeholder="Nhập từ khóa..."
+                            placeholder="Nhập từ khoá..."
                             class="form-control"
                             name="keyword"
                             value=keyword
                         )
                         button(
                             type="submit"
-                            class="btn btn-primary"
-                        ) Tìm
+                            class="btn ms-2"
+                        ) Search
 
-            .col-6 
+            .col-7 
                 .inner-menu   
                     ul 
                         li 

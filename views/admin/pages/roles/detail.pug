@@ -1,0 +1,50 @@
+extends ../../layouts/default.pug
+
+block main 
+    if(record.title)
+        h1(class="mb-4") #{record.title}
+
+    if(record.description)
+        div(class="mb-4") Mô tả: <b>#{record.description}</b>
+
+    div(class="mb-4") Số lượng: <b>#{accounts.length}</b>
+
+    .card.mb-3
+        .card-header Danh sách
+        .card-body
+            table(
+                class="table table-hover table-sm text-center align-middle"
+            )
+                thead
+                    tr
+                        th STT
+                        th Avatar
+                        th Họ và tên
+                        th Email
+                        th Số điện thoại
+                        th Trạng thái
+
+                tbody
+                    if(accounts.length > 0)
+                        each item, index in accounts
+                            tr
+                                td #{index + 1}
+                                td 
+                                    if(item.avatar)
+                                        img(
+                                            src=item.avatar 
+                                            style="height: 100px; margin-bottom: 15px;"
+                                        )
+                                td #{item.fullName}
+                                td #{item.email}
+                                td #{item.phone}
+                                td 
+                                    if(item.status === "active")
+                                        span(class="badge bg-success") Hoạt động
+                                    else 
+                                        span(class="badge bg-danger") Dừng hoạt động
+                        
+    a(
+        href=`${prefixAdmin}/roles`
+        class="btn btn-warning"
+    ) Quay lại

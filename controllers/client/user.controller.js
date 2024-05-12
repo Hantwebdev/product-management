@@ -233,3 +233,27 @@ module.exports.info = async (req, res) => {
         pageTitle: "Thông tin tài khoản",
     });
 };
+
+// [GET] /user/edit/:id
+module.exports.edit = async (req, res) => {
+    const id = req.params.id;
+    let find = {
+        _id: id,
+        deleted: false
+    }
+    const data = await User.findOne(find);
+    
+    res.render("client/pages/user/edit", {
+        pageTitle: "Chỉnh sửa thông tin tài khoản",
+        data: data
+    });
+};
+
+// [PATCH] /user/edit/:id
+module.exports.editPatch = async (req, res) => {
+    const id = req.params.id;
+
+    await User.updateOne({_id: id}, req.body);
+
+    res.redirect("back");
+};
