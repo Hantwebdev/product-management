@@ -14,25 +14,28 @@ block main
 
         .row
             .col-12
-                table(class="table table-bordered text-center align-middle")
-                    thead
-                        tr
-                        th STT
-                        th Ảnh
-                        th Tên
-                        th Giá
-                        th Số lượng
-                        th Tổng tiền
-                        th Hành động
-                    tbody
-                        if(cartDetail.products.length > 0)
+                if(cartDetail.products.length > 0)
+                    table(class="table table-bordered text-center align-middle")
+                        thead
+                            tr
+                            th STT
+                            th Ảnh
+                            th Tên
+                            th Giá
+                            th Số lượng
+                            th Tổng tiền
+                            th Hành động
+                        tbody
                             each item, index in cartDetail.products
                                 tr
                                     td #{index + 1}
                                     td
                                         img(src=item.productInfo.thumbnail, alt=item.productInfo.title width="80px")
                                     td
-                                        a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}
+                                        a(
+                                            href=`/products/detail/${item.productInfo.slug}`
+                                            class = "cart-product"
+                                        ) #{item.productInfo.title}
                                     td #{item.productInfo.priceNew}$
                                     td
                                         input(
@@ -49,12 +52,13 @@ block main
                                             href=`/cart/delete/${item.product_id}`
                                             class="btn btn-danger"
                                         ) Xóa
-                        else 
-                            p Không có sản phẩm nào trong giỏ hàng.
 
-                h3(class="text-end") Tổng đơn hàng: #{cartDetail.totalPrice}$
+                    h3(class="text-end") Tổng đơn hàng: #{cartDetail.totalPrice}$
 
-                div(class="text-end mt-3")
-                    a(href="/checkout" class="btn btn-success") THANH TOÁN
+                    div(class="text-end mt-3")
+                        a(href="/checkout" class="btn btn-success") THANH TOÁN
+
+                else 
+                    p Không có sản phẩm nào trong giỏ hàng.
 
     script(src="/js/cart.js") 

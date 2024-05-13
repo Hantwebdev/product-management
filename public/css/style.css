@@ -6,6 +6,11 @@
 	font-variation-settings: "slnt" 0;
 }
 
+:root {
+	--background-main-color: -webkit-linear-gradient(-30deg, #f57f20, #d62b08 100%);
+	--secondary-color: #c2000c;
+}
+
 a {
 	text-decoration: none;
 	transition-behavior: normal;
@@ -23,7 +28,7 @@ a {
 	box-shadow: 0 2px 28px 0 rgb(0 0 0 / 6%);
 	/* border-bottom: 1px solid #ddd; */
 	padding: 5px 0;
-	z-index: 99999;
+	z-index: 1;
 }
 
 .header .inner-logo img {
@@ -36,7 +41,7 @@ a {
 	width: 100px;
 	font-weight: 700;
 	color: #fff;
-	background-image: -webkit-linear-gradient(-30deg, #f57f20, #d62b08 100%);
+	background-image: var(--background-main-color);
 }
 
 .header button:hover {
@@ -82,7 +87,7 @@ a {
 /* Footer */
 .footer {
 	font-weight: 700;
-	background-image: -webkit-linear-gradient(-30deg, #f57f20, #d62b08 100%);
+	background-image: var(--background-main-color);
 	color: #fff;
 	text-align: center;
 	padding: 10px;
@@ -98,7 +103,7 @@ a {
 	margin-bottom: 0;
 	font-size: 28px;
 	font-weight: 800;
-    color: #C2000C;
+    color: var(--secondary-color);
 	position: relative;
 	padding-bottom: 20px;
 }
@@ -107,7 +112,7 @@ a {
 	content: "";
     width: 100px;
     height: 3px;
-    background: -webkit-linear-gradient(-30deg, #f57f20, #d62b08 100%);
+    background: var(--background-main-color);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -214,7 +219,7 @@ a {
 	position: absolute;
 	top: 0;
 	right: 0;
-	background: #C2000C;;
+	background: var(--secondary-color);;
 	color: white;
 	padding: 3px 6px;
 	font-weight: 800;
@@ -255,12 +260,22 @@ a {
 	font-size: 14px;
 	font-weight: 600;
 	color: white;
-	background-image: -webkit-linear-gradient(-30deg, #f57f20, #d62b08 100%);
+	background-image: var(--background-main-color);
 	display: inline-block;
 	padding: 3px 10px;
 	border-radius: 8px;
 }
 /* End product-item */
+
+/* Cart */
+.cart-product {
+	font-weight: 600;
+	color: #333333;
+}
+
+.show-success, .show-danger {
+	z-index: 9999999999;
+}
 
 /* sub-menu */
 .sub-menu {
