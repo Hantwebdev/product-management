@@ -6,9 +6,53 @@ const createTreeHelper = require("../../helpers/createTree");
 // [GET] /admin/products-category
 
 module.exports.index = async (req, res) => {
+    let filterStatus = [
+        {
+            name: "Tất cả",
+            status: "",
+            class: ""
+
+        },
+        {
+            name: "Hoạt động",
+            status: "active",
+            class: ""
+
+        },
+        {
+            name: "Dừng hoạt động",
+            status: "inactive",
+            class: ""
+
+        }
+    ];
+
+    if (req.query.status) {
+        const index = filterStatus.findIndex(item => item.status == req.query.status);
+        filterStatus[index].class = "active";
+    } else {
+        const index = filterStatus.findIndex(item => item.status == "");
+        filterStatus[index].class = "active";
+    };
+
     let find = {
         deleted: false,
     };
+
+    if (req.query.status) {
+        find.status = req.query.status;
+    }
+
+    let keyword = "";
+
+    if (req.query.keyword) {
+        keyword = req.query.keyword;
+
+        const regex = new RegExp(keyword, "i");
+
+        find.title = regex;
+    }
+
 
     const records = await ProductCategory.find(find)
 
@@ -16,7 +60,9 @@ module.exports.index = async (req, res) => {
 
     res.render("admin/pages/products-category/index", {
         pageTitle: "Danh mục sản phẩm",
-        records: newRecords
+        records: newRecords,
+        filterStatus: filterStatus,
+        keyword: keyword
     });
 };
 
@@ -40,13 +86,13 @@ module.exports.create = async (req, res) => {
 // [POST] /admin/products-category/create
 
 module.exports.createPost = async (req, res) => {
-    if(req.body.position == ""){
+    if (req.body.position == "") {
         const count = await ProductCategory.countDocuments();
         req.body.position = count + 1;
     } else {
         req.body.position = parseInt(req.body.position);
     }
-    
+
     const record = new ProductCategory(req.body);
     await record.save();
 
@@ -58,7 +104,7 @@ module.exports.createPost = async (req, res) => {
 module.exports.edit = async (req, res) => {
     try {
         const id = req.params.id;
-    
+
         const data = await ProductCategory.findOne({
             _id: id,
             deleted: false
@@ -90,6 +136,16 @@ module.exports.editPatch = async (req, res) => {
     await ProductCategory.updateOne({
         _id: id
     }, req.body)
-    
+
     res.redirect("back");
 };
+
+// [DELETE] /admin/products-category/delete/:id
+
+module.exports.delete = async (req, res) => {
+    const id = req.params.id;
+
+    await ProductCategory.updateOne({ _id: id }, { deleted: true });
+
+    res.redirect("back");
+}

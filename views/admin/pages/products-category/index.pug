@@ -5,8 +5,32 @@ block main
         h1 Danh mục sản phẩm
 
         .card.mb-3 
-            .card-header Danh mục sản phẩm
+            .card-header Bộ lọc và tìm kiếm
             .card-body
+                .row
+                    .col-6
+                        each item in filterStatus
+                            button(
+                                class=`btn btn-sm ms-1 btn-outline-success ${item.class}`
+                                button-status=item.status
+                            ) #{item.name}
+
+                    .col-6 
+                        form(id="form-search")
+                            .input-group 
+                                input(
+                                    type="text"
+                                    placeholder="Nhập từ khoá"
+                                    name="keyword"
+                                    class="form-control"
+                                    value=keyword
+                                )
+                                .input-group-append 
+                                    button(
+                                        class="btn btn-success"
+                                        type="submit"
+                                    ) Tìm
+
                 .row
                     .col-8  
                     .col-4 
@@ -15,9 +39,11 @@ block main
                                 href=`${prefixAdmin}/products-category/create`
                                 class="btn btn-outline-success"
                             ) + Thêm mới
-
+        .card.mb-3 
+            .card-header Danh mục sản phẩm
+            .card-body
                 table(
-                    class="table table-hover table-sm "
+                    class="table table-hover table-sm text-center align-middle"
                     checkbox-multi
                 )
                     thead 
@@ -32,3 +58,11 @@ block main
                             th Hành động
                     tbody 
                         +table-tree(records)  
+
+        form(
+            action=""
+            method="POST"
+            id="form-delete-item"
+            data-path=`${prefixAdmin}/products-category/delete`
+        )
+        script(src="/admin/js/product-category.js") 

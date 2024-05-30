@@ -9,14 +9,14 @@ mixin table-tree(items, level = 1)
                     value=item.id
                 )
             td #{item.index}
-            td 
+            td
                 img(
                     src= item.thumbnail
                     alt= item.title
                     width="100px"
                     height="auto"
                 )
-            td #{prefix}#{item.title}
+            td(class="text-start") #{prefix}#{item.title}
             td 
                 input(
                     type="number"
@@ -51,7 +51,7 @@ mixin table-tree(items, level = 1)
                 if(role.permissions.includes("products-category_edit"))
                     a(
                         href=`${prefixAdmin}/products-category/edit/${item.id}`
-                        class="btn btn-warning btn-sm"
+                        class="btn btn-warning btn-sm ms-2"
                         ) Sửa
                 if(role.permissions.includes("products-category_delete"))
                     button(
