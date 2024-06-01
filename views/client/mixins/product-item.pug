@@ -9,6 +9,6 @@ mixin product-item(item)
                 .inner-title
                     a(href=`/products/detail/${item.slug}`) #{item.title}
                 .inner-price
-                    span.inner-price-new #{item.priceNew}đ
-                    span.inner-price-old #{item.price}đ
+                    span.inner-price-new #{item.priceNew.toLocaleString()}₫
+                    span.inner-price-old #{item.price.toLocaleString()}₫
                 span.inner-discount -#{item.discountPercentage}%

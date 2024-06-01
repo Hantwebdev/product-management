@@ -1,10 +1,10 @@
 // Show Alert
 const showAlert = document.querySelector("[show-alert]");
-
-if(showAlert) {
+console.log(showAlert)
+if (showAlert) {
     const time = parseInt(showAlert.getAttribute("data-time"));
     const closeAlert = showAlert.querySelector("[close-alert]");
-    
+    console.log(closeAlert)
     setTimeout(() => {
         showAlert.classList.add("alert-hidden");
     }, time);

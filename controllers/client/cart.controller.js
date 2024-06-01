@@ -10,9 +10,9 @@ module.exports.index = async (req, res) => {
         _id: cartId
     });
 
-    if(cart.products.length > 0){
+    if (cart.products.length > 0) {
         for (const item of cart.products) {
-            const productId = item. product_id;
+            const productId = item.product_id;
             const productInfo = await Product.findOne({
                 _id: productId
             }).select("title thumbnail slug price discountPercentage");
@@ -41,15 +41,15 @@ module.exports.addPost = async (req, res) => {
     const productId = req.params.productId;
     const quantity = parseInt(req.body.quantity);
     const cartId = req.cookies.cartId;
-  
+
     const cart = await Cart.findOne({
         _id: cartId
     })
 
     const existProductInCart = cart.products.find(item => item.product_id == productId);
-    if(existProductInCart){
+    if (existProductInCart) {
         const quantityNew = quantity + existProductInCart.quantity;
-        
+
         await Cart.updateOne(
             {
                 _id: cartId,
@@ -65,19 +65,19 @@ module.exports.addPost = async (req, res) => {
             product_id: productId,
             quantity: quantity
         };
-      
+
         await Cart.updateOne(
             {
-              _id: cartId
+                _id: cartId
             },
             {
-              $push: { products: objectCart }
+                $push: { products: objectCart }
             }
         );
     }
-  
+
     req.flash("success", "Đã thêm sản phẩm vào giỏ hàng!");
-  
+
     res.redirect("back");
 }
 
@@ -85,7 +85,7 @@ module.exports.addPost = async (req, res) => {
 module.exports.delete = async (req, res) => {
     const cartId = req.cookies.cartId;
     const productId = req.params.productId;
-    
+
     await Cart.updateOne({
         _id: cartId
     }, {
