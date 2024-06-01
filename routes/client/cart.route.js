@@ -9,6 +9,6 @@ router.post("/add/:productId", controller.addPost);
 
 router.get("/delete/:productId", controller.delete);
 
-router.get("/update/:productId/:quantity", controller.update);
+router.get("/update/:productId/:quantityNew", controller.update);
 
 module.exports = router;

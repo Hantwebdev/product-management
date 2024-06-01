@@ -1,4 +1,5 @@
 include ../mixins/sub-menu.pug
+include ../mixins/cart.pug
 
 header.header
     .container
@@ -35,54 +36,9 @@ header.header
                             - const pathProduct = "/products";
                             a(href=pathProduct) Sản phẩm
                                 +sub-menu(layoutProductsCategory, pathProduct)
-                        //- li
-                        //-     a(href="/cart") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0}) 
                         
                         li(class="cart")
-                            span(class="cart-icon")
-                                <a href="/cart">
-                                    <i class="fa-solid fa-bag-shopping"  style="font-size: 18px"></i>
-                                    span(class="cart-items") #{miniCart.products.length > 0 ? miniCart.totalQuantity : 0} 
-                                </a>
-
-                            div(class="list-item")
-                                if(miniCart.products.length > 0)
-                                    each item, index in miniCart.products
-                                        div(class="border-list")
-                                            div(class="item-img")
-                                                a(
-                                                    class="product-img" 
-                                                    title=item.productInfo.thumbnail 
-                                                    href=`/products/detail/${item.productInfo.slug}`
-                                                )
-                                                    img(src=item.productInfo.thumbnail, alt=item.productInfo.slug) 
-                                            div(class="detail-item")
-                                                div(class="product-details")
-                                                    a(
-                                                        href=`/cart/delete/${item.product_id}`
-                                                        class="remove-item-cart"
-                                                    ) <i class="fa-solid fa-xmark" close-alert></i>
-
-                                                    p(class="product-name") 
-                                                        a(
-                                                            href=`/products/detail/${item.productInfo.slug}`
-                                                            title = item.productInfo.title
-                                                        ) #{item.productInfo.title}
-                                                span(class="price-old") #{item.productInfo.price.toLocaleString()}₫
-                                                div(class="product-details-bottom")
-                                                    span(class="price") #{item.productInfo.priceNew.toLocaleString()}₫
-                                                    span(class="quantity") x #{item.quantity}
-
-                                    div(class="total-price") Tổng tiền tạm tính: 
-                                        span(class="price-big") #{miniCart.totalPrice.toLocaleString()}₫
-
-                                    div(class="cart-action")
-                                        a(href="/cart") Tiến hành thanh toán
-                                                   
-
-                                else 
-                                    div(class="no-item") 
-                                        p Không có sản phẩm nào.
+                            +cart(miniCart)
                         
                         li(class="sub-menu")
                             <i class="fa-regular fa-user" style="font-size: 18px"></i>

@@ -101,7 +101,7 @@ module.exports.delete = async (req, res) => {
 module.exports.update = async (req, res) => {
     const cartId = req.cookies.cartId;
     const productId = req.params.productId;
-    const quantity = req.params.quantity;
+    const quantity = req.params.quantityNew;
 
     await Cart.updateOne(
         {

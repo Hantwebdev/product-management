@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 include ../../mixins/alert.pug
+include ../../mixins/cart-empty.pug
 
 block main
     //- +alert-success(5000)
@@ -36,29 +37,49 @@ block main
                                             href=`/products/detail/${item.productInfo.slug}`
                                             class = "cart-product"
                                         ) #{item.productInfo.title}
-                                    td #{item.productInfo.priceNew}$
+                                    td #{item.productInfo.priceNew.toLocaleString()}₫
+                                    //- td
+                                    //-     input(
+                                    //-         type="number"
+                                    //-         name="quantity"
+                                    //-         value=item.quantity
+                                    //-         min="1"
+                                    //-         product-id=item.product_id
+                                    //-         style="width: 60px"
+                                    //-     )
                                     td
-                                        input(
-                                            type="number"
-                                            name="quantity"
-                                            value=item.quantity
-                                            min="1"
-                                            product-id=item.product_id
-                                            style="width: 60px"
-                                        )
-                                    td #{item.totalPrice}$
+                                        div(class="select-item-qty")
+                                            span(class="reduce-btn")
+                                                <i class="fa-solid fa-minus"></i>
+                                            input(
+                                                type="number"
+                                                name="quantity"
+                                                value=item.quantity
+                                                min="1"
+                                                product-id=item.product_id
+                                                style="width: 50px"
+                                            )
+                                            span(class="plus-btn") 
+                                                <i class="fa-solid fa-plus"></i>
+                                    td #{item.totalPrice.toLocaleString()}₫
                                     td
                                         a(
                                             href=`/cart/delete/${item.product_id}`
                                             class="btn btn-danger"
                                         ) Xóa
 
-                    h3(class="text-end") Tổng đơn hàng: #{cartDetail.totalPrice}$
+                    h3(class="text-end") Tổng đơn hàng: #{cartDetail.totalPrice.toLocaleString()}₫
 
                     div(class="text-end mt-3")
-                        a(href="/checkout" class="btn btn-success") THANH TOÁN
+                        a(href="/checkout" class="btn btn-success") Thanh toán ngay
 
                 else 
-                    p Không có sản phẩm nào trong giỏ hàng.
-
+                    +cart-empty
+                    
+    form(
+        action="" 
+        method="GET"
+        id="form-update-quantity"
+    ) 
+    
     script(src="/js/cart.js") 
