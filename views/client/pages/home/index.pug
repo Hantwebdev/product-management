@@ -1,21 +1,81 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
-include ../../mixins/product-layout.pug
-
 
 block main
-    .section-products-featured.my-5
-        .container
+    div(class="home-slider")
+        img(src="/images/slider.jpg")
+
+    .container
+        div(class="policies")
+            //- item 1
+            div(class="policies-item")
+                div(class="policies-img")
+                    img(src="/images/policies_icon_1.jpg")
+                div(class="policies-info")
+                    div(class="policies-title") MIỄN PHÍ VẬN CHUYỂN
+                    div(class="policies-desc") Hóa đơn từ 500k
+
+            //- item 2
+            div(class="policies-item")
+                div(class="policies-img")
+                    img(src="/images/policies_icon_2.jpg")
+                div(class="policies-info")
+                    div(class="policies-title") TÍCH ĐIỂM THÀNH VIÊN
+                    div(class="policies-desc") Cộng dồn lên đến 15%
+
+            //- item 3
+            div(class="policies-item")
+                div(class="policies-img")
+                    img(src="/images/policies_icon_3.jpg")
+                div(class="policies-info")
+                    div(class="policies-title") ĐỔI TRẢ TẬN NHÀ
+                    div(class="policies-desc") Trong 7 ngày
+
+            //- item 4
+            div(class="policies-item")
+                div(class="policies-img")
+                    img(src="/images/policies_icon_4.jpg")
+                div(class="policies-info")
+                    div(class="policies-title") HỖ TRỢ NHANH CHÓNG
+                    div(class="policies-desc") Hotline: 028.999.999.00
+                
+                
+        .section-products-featured.my-4
             .row
                 .col-12
                     +box-head("Sản phẩm nổi bật")
 
-            +product-grid(productsFeatured)
+            div(class="product-item-grid")
+                    each item in productsFeatured
+                        .product-item
+                            .inner-image
+                                img(src=item.thumbnail, alt=item.title)
+                                if(item.featured == "1")
+                                    .inner-featured Nổi bật
+                            .inner-content
+                                .inner-title
+                                    a(href=`/products/detail/${item.slug}`) #{item.title}
+                                .inner-price
+                                    span.inner-price-new #{item.priceNew.toLocaleString()}₫
+                                    span.inner-price-old #{item.price.toLocaleString()}₫
+                                    span.inner-discount -#{item.discountPercentage}%
 
-    .section-products-new.my-5
-        .container
+        .section-products-new.my-5
             .row
                 .col-12
                     +box-head("Sản phẩm mới")
 
-            +product-grid(newProducts)
+            div(class="product-item-grid")
+                each item in newProducts
+                    .product-item
+                        .inner-image
+                            img(src=item.thumbnail, alt=item.title)
+                            if(item.featured == "1")
+                                .inner-featured Nổi bật
+                        .inner-content
+                            .inner-title
+                                a(href=`/products/detail/${item.slug}`) #{item.title}
+                            .inner-price
+                                span.inner-price-new #{item.priceNew.toLocaleString()}₫
+                                span.inner-price-old #{item.price.toLocaleString()}₫
+                                span.inner-discount -#{item.discountPercentage}%

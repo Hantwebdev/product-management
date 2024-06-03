@@ -3,13 +3,11 @@ include ../mixins/cart.pug
 
 header.header
     .container
-        .row.align-items-center.row-content 
-            .col-1 
-                .inner-logo 
-                    a(href="/")
-                        img(src=settingGeneral.logo, alt=settingGeneral.websiteName)
-
-            .col-5
+        div(class="header-content")
+            div(class="inner-logo") 
+                a(href="/")
+                    img(src=settingGeneral.logo, alt=settingGeneral.websiteName)
+            div(class="form-search") 
                 form(
                     action="/search"
                     method="GET"
@@ -27,7 +25,7 @@ header.header
                             class="btn ms-2"
                         ) Search
 
-            .col-6 
+            div(class="menu-header")  
                 .inner-menu   
                     ul 
                         li 
@@ -43,8 +41,6 @@ header.header
                         li(class="sub-menu")
                             <i class="fa-regular fa-user" style="font-size: 18px"></i>
                                 if(user)
-                                    //- li 
-                                    //-     a(href="/chat") Chat
                                     ul
                                         li 
                                             a(href="/user/info") Profile
@@ -60,20 +56,3 @@ header.header
                                             a(href="/user/login") Đăng nhập
                                         li 
                                             a(href="/user/register") Đăng ký
-
-                        //- if(user)
-                        //-     //- li 
-                        //-     //-     a(href="/chat") Chat
-                        //-     li 
-                        //-         a(href="/users/friends") Bạn bè
-                        //-     li 
-                        //-         a(href="/rooms-chat") Phòng chat
-                        //-     li 
-                        //-         a(href="/user/info") #{user.fullName}
-                        //-     li 
-                        //-         a(href="/user/logout") Đăng xuất
-                        //- else 
-                        //-     li 
-                        //-         a(href="/user/login") Đăng nhập
-                        //-     li 
-                        //-         a(href="/user/register") Đăng ký

@@ -34,9 +34,9 @@ block main
                                         width="80px"
                                     )
                                 td #{item.productInfo.title}
-                                td #{item.productInfo.priceNew}$
+                                td #{item.productInfo.priceNew.toLocaleString()}₫
                                 td #{item.quantity}
-                                td #{item.totalPrice}$
+                                td #{item.totalPrice.toLocaleString()}₫
                         else
                             tr
                                 td(
@@ -44,45 +44,51 @@ block main
                                     class="text-center"
                                 ) Giỏ hàng trống.
                 if(cartDetail.products.length > 0)
-                    h3(class="text-end") Tổng đơn hàng: #{cartDetail.totalPrice}$
+                    h3(class="text-end") Tổng đơn hàng: #{cartDetail.totalPrice.toLocaleString()}₫
 
-        if(cartDetail.products.length > 0)
-            .row
-                .col-12
+    if(cartDetail.products.length > 0)
+        .row(class="pb-5 pt-4" style="background: #FF7F00")
+            .col-12 
+                .container
                     .card.p-4.my-4
                         form(
                             action="/checkout/order"
                             method="POST"
+                            class="checkout-detail"
                         )
-                            div(class="form-group mb-4")
-                                label(for="fullName") Họ tên
+                            div(class="checkout-title") Thông tin nhận hàng
+                            div(class="form-group mb-1 ")
+                                label(for="fullName") 
                                 input(
                                     type="text"
                                     class="form-control"
                                     id="fullName"
                                     name="fullName"
+                                    placeholder="Họ và tên *"
                                     required
-                                )
-                            div(class="form-group mb-4")
-                                label(for="phone") Số điện thoại
+                                ) 
+                            div(class="form-group mb-1")
+                                label(for="phone") 
                                 input(
                                     type="text"
                                     class="form-control"
                                     id="phone"
                                     name="phone"
+                                    placeholder="Số điện thoại *"
                                     required
                                 )
                             div(class="form-group")
-                                label(for="address") Địa chỉ
+                                label(for="address") 
                                 input(
                                     type="text"
                                     class="form-control"
                                     id="address"
                                     name="address"
+                                    placeholder="Địa chỉ *"
                                     required
                                 )
-                            div(class="form-group d-grid mt-3")
+                            div(class="form-group text-center mt-3")
                                 button(
                                     type="submit"
-                                    class="btn btn-success btn-block"
-                                ) ĐẶT HÀNG         
+                                    class="btn btn-success checkout-btn"
+                                ) Đặt hàng       

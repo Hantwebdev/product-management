@@ -43,8 +43,6 @@ if (listSelectQuantity.length > 0) {
     })
 }
 
-
-
 // Cap nhat so luong sp trong cart
 const inputsQuantity = document.querySelectorAll("input[name='quantity']");
 if (inputsQuantity.length > 0) {

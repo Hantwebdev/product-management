@@ -1,14 +1,15 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
+include ../../mixins/customer-policy.pug
 block main
     .product-detail
-        .container.my-5
+        .container.my-4
             .row
-                .col-6
+                .col-5
                     .inner-thumb
                         img(src=product.thumbnail, alt=product.title)
-                .col-6
-                    h1(class="inner-title") #{product.title}
+                .col-7
+                    h2(class="inner-title") #{product.title}
 
                     if (product.category)
                         div(class="inner-category")
@@ -16,36 +17,139 @@ block main
                             a(href=`/products/${product.category.slug}`) #{product.category.title}
 
                     if (product.priceNew)
-                        div(class="inner-price-new") #{product.priceNew}$
+                        span(class="inner-price-new") #{product.priceNew.toLocaleString()}₫
 
                     if (product.price)
-                        div(class="inner-price-old") #{product.price}$
-
-                    if (product.discountPercentage)
-                        div(class="inner-percent") Giảm tới <span>#{product.discountPercentage}$</span>
+                        span(class="inner-price-old ms-3") #{product.price.toLocaleString()}₫
 
                     if (product.stock)
-                        div(class="inner-stock") Còn lại <span>#{product.stock}</span> sản phẩm
+                        div(class="inner-stock") Còn lại <b>#{product.stock}</b> sản phẩm
+
+                    div(class="product-promotion")
+                        h3(class="product-promotion-title")
+                            img(src="/images/icon-product-promotion.jpg" alt=product.title class="mr-2")
+                            | KHUYẾN MÃI - ƯU ĐÃI
+                        ul(class="promotion-box")
+                            li 
+                                | Miễn phí vận chuyển dành cho đơn hàng từ 500k
+                            li 
+                                | Ưu đãi member lên đến #{product.discountPercentage}%
 
                     form(
                         action=`/cart/add/${product.id}`
                         method="POST"
+                        class = "form-quantity-item"
                         )
-                        input(
-                            class="form-control mb-2"
-                            type="number"
-                            name="quantity"
-                            value="1"
-                            min="1"
-                            max=product.stock
-                        )
+                        div(class="select-item-qty" style="height: 46px")
+                            span(class="reduce-btn" style="padding-left: 20px")
+                                <i class="fa-solid fa-minus"></i>
+                            input(
+                                class="form-control mb-2"
+                                type="number"
+                                name="quantity"
+                                value="1"
+                                min="1"
+                                max=product.stock
+                                style="margin: 8px 0px 8px"
+                            )
+                            span(class="plus-btn" style="padding-right: 20px") 
+                                <i class="fa-solid fa-plus"></i>
                         button(
                             type="submit"
-                            class="btn btn-success btn-block"
-                        ) Thêm vào giỏ hàng
+                            class="btn form-quantity-submit"
+                        ) THÊM VÀO GIỎ
+                    
 
-        .container.my-5
-            .row
-                .col-12
-                    +box-head("Mô tả sản phẩm")
-                .inner-desc !{product.description}
+                    ul(class="product-policises")
+                        li(class="media")
+                            div(class="media-img")
+                                img(src="/images/policy_product_image_1.jpg" alt="Miễn phí vận chuyển đơn từ 500k") 
+                            div(class="media-body") 
+                                | Miễn phí vận chuyển đơn từ 500k  
+                        li(class="media")
+                            div(class="media-img")
+                                img(src="/images/policy_product_image_2.jpg" alt="Tích điểm thành viên") 
+                            div(class="media-body") 
+                                | Tích điểm thành viên  
+                        li(class="media")
+                            div(class="media-img")
+                                img(src="/images/policy_product_image_3.jpg" alt="Đổi trả trong 7 ngày") 
+                            div(class="media-body") 
+                                | Đổi trả trong 7 ngày  
+                        li(class="media")
+                            div(class="media-img")
+                                img(src="/images/policy_product_image_4.jpg" alt="Hỗ trợ trực tuyến từ 8h30 - 22h") 
+                            div(class="media-body") 
+                                | Hỗ trợ trực tuyến từ 8h30 - 22h  
+
+                    div(class="accordion-list")
+                        div(class="accordion")
+                            div(class="accordion-header")
+                                div Mô tả sản phẩm
+                                div(class="accordion-icon")
+                                    <i class="fa-solid fa-angle-down icon"></i>
+                            div(class="accordion-content")
+                                div(class="accordion-inner") !{product.description}
+
+                        div(class="accordion")
+                            div(class="accordion-header")
+                                div Chính sách khách hàng
+                                div(class="accordion-icon")
+                                    <i class="fa-solid fa-angle-down icon"></i>
+                            div(class="accordion-content accordion-content-img")
+                                div(class="accordion-inner accordion-img") 
+                                    img(src="/images/chinh-sach-khach-hang-web.jpg" alt="Chính sách khách hàng")
+                        
+                        div(class="accordion")
+                            div(class="accordion-header")
+                                div Chính sách kiểm hàng
+                                div(class="accordion-icon")
+                                    <i class="fa-solid fa-angle-down icon"></i>
+                            div(class="accordion-content")
+                                div(class="accordion-inner") 
+                                    +customer-policy
+
+            div(class="product-info")
+                div(class="product-info-detail")
+                    div(class="product-info-img")
+                        img(src=product.thumbnail alt=product.title)
+                    div(class="product-info-content") 
+                        span(class="product-info-name") #{product.title}
+                        div(class="price-box")  
+                            span(class="special-price") #{product.priceNew.toLocaleString()}₫
+                            span(class="old-price") #{product.price.toLocaleString()}₫
+                            span(class="discount-price") -#{product.discountPercentage}%
+                        div(class="save-price")
+                            - var save_price = product.price - product.priceNew
+                            | (Tiết kiệm #{save_price.toLocaleString()}₫)
+                        
+                    div(class="product_info_buttons")
+                        span(class="product_info_label") Số lượng:
+                        form(
+                            action=`/cart/add/${product.id}`
+                            method="POST"
+                            class = "form-quantity-item"
+                        )
+                            div(class="select-item-qty" style="height: 46px")
+                                span(class="reduce-btn" style="padding-left: 20px")
+                                    <i class="fa-solid fa-minus"></i>
+                                input(
+                                    class="form-control mb-2"
+                                    type="number"
+                                    name="quantity"
+                                    value="1"
+                                    min="1"
+                                    max=product.stock
+                                    style="margin: 8px 0px 8px"
+                                )
+                                span(class="plus-btn" style="padding-right: 20px") 
+                                    <i class="fa-solid fa-plus"></i>
+                            button(
+                                type="submit"
+                                class="btn form-quantity-submit"
+                                style="width: 200px"
+                            ) THÊM VÀO GIỎ
+                    
+    script(src="/js/detail-product.js") 
+
+        

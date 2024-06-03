@@ -30,23 +30,18 @@ block main
                             each item, index in cartDetail.products
                                 tr
                                     td #{index + 1}
+
                                     td
                                         img(src=item.productInfo.thumbnail, alt=item.productInfo.title width="80px")
+
                                     td
                                         a(
                                             href=`/products/detail/${item.productInfo.slug}`
                                             class = "cart-product"
                                         ) #{item.productInfo.title}
+
                                     td #{item.productInfo.priceNew.toLocaleString()}₫
-                                    //- td
-                                    //-     input(
-                                    //-         type="number"
-                                    //-         name="quantity"
-                                    //-         value=item.quantity
-                                    //-         min="1"
-                                    //-         product-id=item.product_id
-                                    //-         style="width: 60px"
-                                    //-     )
+
                                     td
                                         div(class="select-item-qty")
                                             span(class="reduce-btn")
@@ -61,17 +56,20 @@ block main
                                             )
                                             span(class="plus-btn") 
                                                 <i class="fa-solid fa-plus"></i>
+
                                     td #{item.totalPrice.toLocaleString()}₫
+
                                     td
                                         a(
                                             href=`/cart/delete/${item.product_id}`
-                                            class="btn btn-danger"
-                                        ) Xóa
+                                            class="remove-item-cart"
+                                            style="color: #000"
+                                        ) <i class="fa-solid fa-xmark" close-alert></i>
 
                     h3(class="text-end") Tổng đơn hàng: #{cartDetail.totalPrice.toLocaleString()}₫
 
-                    div(class="text-end mt-3")
-                        a(href="/checkout" class="btn btn-success") Thanh toán ngay
+                    div(class="text-end mt-4")
+                        a(href="/checkout" class=" button-pay") Thanh toán ngay
 
                 else 
                     +cart-empty
