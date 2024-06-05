@@ -8,6 +8,26 @@ block main
         .row 
             .col-12 
                 +box-head(pageTitle)
-
-        +product-grid(products) 
+            .col-2 
+                div Bộ lọc
         
+            .col-10
+                if(products.length > 0)
+                    //- +product-grid(products) 
+                    div(class="product-item-grid grid-product" )
+                        each item in products
+                            .product-item
+                                .inner-image
+                                    img(src=item.thumbnail, alt=item.title)
+                                    if(item.featured == "1")
+                                        .inner-featured Nổi bật
+                                .inner-content
+                                    .inner-title
+                                        a(href=`/products/detail/${item.slug}`) #{item.title}
+                                    .inner-price
+                                        span.inner-price-new #{item.priceNew.toLocaleString()}₫
+                                        span.inner-price-old #{item.price.toLocaleString()}₫
+                                        span.inner-discount -#{item.discountPercentage}%
+                else 
+                    .empty-product
+                        | Sản phẩm đang được cập nhật.

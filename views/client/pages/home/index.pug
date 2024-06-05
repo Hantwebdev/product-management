@@ -39,6 +39,15 @@ block main
                     div(class="policies-title") HỖ TRỢ NHANH CHÓNG
                     div(class="policies-desc") Hotline: 028.999.999.00
                 
+        div(class="category-list filtering")
+            each item in childCategorys
+                div(class="category-item" style="width: 200px")
+                    a(href=`/products/${item.slug}`)
+                        div(class="category-img")
+                            img(src=item.thumbnail)
+                        div(class="category-info")
+                            div(class="category-info-name") #{item.title} 
+                            span(class="category-info-number") #{item.totalProducts} sản phẩm
                 
         .section-products-featured.my-4
             .row
@@ -79,3 +88,5 @@ block main
                                 span.inner-price-new #{item.priceNew.toLocaleString()}₫
                                 span.inner-price-old #{item.price.toLocaleString()}₫
                                 span.inner-discount -#{item.discountPercentage}%
+    
+    //- script(type="text/javascript" src="/js/slick-slider.js")

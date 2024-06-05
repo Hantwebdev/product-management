@@ -149,7 +149,72 @@ block main
                                 class="btn form-quantity-submit"
                                 style="width: 200px"
                             ) THÊM VÀO GIỎ
-                    
+
+            //- Sản phẩm cùng phân khúc
+            if(productSegment.length > 0)
+                div(class="related-product" style="margin-bottom: 50px")
+                    div(class="related-product-title") Sản phẩm cùng phân khúc
+
+                    if(productSegment.length > 3)
+                        div(class="related-product-body ơroduct-item-grid filtering")
+                            each item in productSegment
+                                .related-product-item.product-item
+                                    .inner-image
+                                        img(src=item.thumbnail, alt=item.title)
+                                    .inner-content
+                                        .inner-title
+                                            a(href=`/products/detail/${item.slug}`) #{item.title}
+                                        .inner-price
+                                            span.inner-price-new #{item.priceNew.toLocaleString()}₫
+                                            span.inner-price-old #{item.price.toLocaleString()}₫
+                                            span.inner-discount -#{item.discountPercentage}%
+                    else 
+                        div(class="related-product-body product-item-grid")
+                            each item in productSegment
+                                .related-product-item.product-item
+                                    .inner-image
+                                        img(src=item.thumbnail, alt=item.title)
+                                    .inner-content
+                                        .inner-title
+                                            a(href=`/products/detail/${item.slug}`) #{item.title}
+                                        .inner-price
+                                            span.inner-price-new #{item.priceNew.toLocaleString()}₫
+                                            span.inner-price-old #{item.price.toLocaleString()}₫
+                                            span.inner-discount -#{item.discountPercentage}%
+
+            //- Sản phẩm cùng loại
+            if(listChildProduct.length > 0)
+                div(class="related-product" style="margin-bottom: 100px")
+                    div(class="related-product-title") Sản phẩm cùng loại
+
+                    if(listChildProduct.length > 3)
+                        div(class="related-product-body ơroduct-item-grid filtering")
+                            each item in listChildProduct
+                                .related-product-item.product-item
+                                    .inner-image
+                                        img(src=item.thumbnail, alt=item.title)
+                                    .inner-content
+                                        .inner-title
+                                            a(href=`/products/detail/${item.slug}`) #{item.title}
+                                        .inner-price
+                                            span.inner-price-new #{item.priceNew.toLocaleString()}₫
+                                            span.inner-price-old #{item.price.toLocaleString()}₫
+                                            span.inner-discount -#{item.discountPercentage}%
+                    else 
+                        div(class="related-product-body product-item-grid")
+                            each item in listChildProduct
+                                .related-product-item.product-item
+                                    .inner-image
+                                        img(src=item.thumbnail, alt=item.title)
+                                    .inner-content
+                                        .inner-title
+                                            a(href=`/products/detail/${item.slug}`) #{item.title}
+                                        .inner-price
+                                            span.inner-price-new #{item.priceNew.toLocaleString()}₫
+                                            span.inner-price-old #{item.price.toLocaleString()}₫
+                                            span.inner-discount -#{item.discountPercentage}%
+
+
     script(src="/js/detail-product.js") 
 
         

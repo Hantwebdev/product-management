@@ -41,7 +41,7 @@ header.header
                         li(class="sub-menu")
                             <i class="fa-regular fa-user" style="font-size: 18px"></i>
                                 if(user)
-                                    ul
+                                    ul(style="width: 120px")
                                         li 
                                             a(href="/user/info") Profile
                                         li 
@@ -51,7 +51,7 @@ header.header
                                         li 
                                             a(href="/user/logout") Đăng xuất
                                 else
-                                    ul 
+                                    ul(style="width: 120px") 
                                         li 
                                             a(href="/user/login") Đăng nhập
                                         li 
