@@ -12,9 +12,9 @@ module.exports.index = async (req, res) => {
         _id: cartId
     });
 
-    if(cart.products.length > 0){
+    if (cart.products.length > 0) {
         for (const item of cart.products) {
-            const productId = item. product_id;
+            const productId = item.product_id;
             const productInfo = await Product.findOne({
                 _id: productId
             }).select("title thumbnail slug price discountPercentage");
@@ -40,7 +40,7 @@ module.exports.index = async (req, res) => {
 // [POST] /checkout/order
 module.exports.order = async (req, res) => {
     const cartId = req.cookies.cartId;
-    const userInfo = req.body;
+    // const userInfo = req.body;
 
     const cart = await Cart.findOne({
         _id: cartId
@@ -48,9 +48,12 @@ module.exports.order = async (req, res) => {
 
     const products = [];
 
+    var priceOrder = 0;
+
     for (const product of cart.products) {
         const objectProduct = {
             product_id: product.product_id,
+            name: "",
             price: 0,
             discountPercentage: 0,
             quantity: product.quantity
@@ -58,18 +61,29 @@ module.exports.order = async (req, res) => {
 
         const productInfor = await Product.findOne({
             _id: product.product_id
-        }).select("price discountPercentage");
+        }).select("title price discountPercentage priceDiscount");
 
+        objectProduct.name = productInfor.title
         objectProduct.price = productInfor.price;
         objectProduct.discountPercentage = productInfor.discountPercentage;
 
+
         products.push(objectProduct);
+
+        priceOrder = priceOrder + productInfor.priceDiscount * product.quantity;
     }
 
+    const user_id = res.locals.user.id;
+
+    const userInfo = req.body;
+
+
     const orderInfo = {
+        user_id: user_id,
         cart_id: cartId,
         userInfo: userInfo,
         products: products,
+        priceOrder: priceOrder
     }
 
     const order = new Order(orderInfo);

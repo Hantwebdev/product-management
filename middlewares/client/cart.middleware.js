@@ -15,8 +15,7 @@ module.exports.cartId = async (req, res, next) => {
             _id: req.cookies.cartId
         });
 
-        // if (cart) 
-        if (cart.products.length > 0) {
+        if (cart) {
             for (const item of cart.products) {
                 const productId = item.product_id;
                 const productInfo = await Product.findOne({
@@ -32,14 +31,12 @@ module.exports.cartId = async (req, res, next) => {
             }
 
             cart.totalQuantity = cart.products.reduce((sum, item) => sum + item.quantity, 0)
+
+            // Tong tien ca don hang
+            cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice, 0);
+
+            res.locals.miniCart = cart;
         }
-
-        // Tong tien ca don hang
-        cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice, 0);
-
-        // console.log(cart);
-
-        res.locals.miniCart = cart;
     }
     next();
 }

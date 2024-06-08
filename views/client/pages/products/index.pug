@@ -6,21 +6,100 @@ block main
 
     .container.my-3 
         .row 
-            .col-12 
+            .col-12.coll-head   
                 +box-head(pageTitle)
-            .col-2 
-                div Bộ lọc
+
+                .sort 
+                    span(class="title") Sắp xếp:
+                    select(
+                        class="form-control"
+                        name="select"
+                        sort-select
+                    )
+                        option(value="title-asc") Tên A → Z
+                        option(value="title-desc") Tên Z → A
+                        option(value="priceDiscout-asc") Giá tăng dần
+                        option(value="priceDiscout-desc") Giá giảm dần
+            .col-2
+                .filter-type
+                    .title-head MỨC GIÁ 
+                    .filter-group
+                        .filter-item 
+                            input(
+                                type="checkbox" 
+                                id="1" 
+                                name="price" 
+                                value="0-200000"
+                                filter-price
+                            ) 
+                            label(for="1") Giá dưới 200.000₫
+                        .filter-item 
+                            input(
+                                type="checkbox" 
+                                id="2" 
+                                name="price" 
+                                value="200000-400000"
+                                filter-price
+                            ) 
+                            label(for="2") 200.000₫ - 400.000₫
+                        .filter-item 
+                            input(
+                                type="checkbox" 
+                                id="3" 
+                                name="price" 
+                                value="400000-600000"
+                                filter-price
+                            ) 
+                            label(for="3") 400.000₫ - 600.000₫
+                        .filter-item 
+                            input(
+                                type="checkbox" 
+                                id="4" 
+                                name="price" 
+                                value="600000-1000000"
+                                filter-price
+                            ) 
+                            label(for="4") 600.000₫ - 1.000.000₫
+                        .filter-item 
+                                input(
+                                    type="checkbox" 
+                                    id="5" 
+                                    name="price" 
+                                    value="1000000-1000000"
+                                    filter-price
+                                ) 
+                                label(for="5") Giá trên 1.000.000₫ 
+                .filter-type 
+                    if(allSub.length > 0)
+                        .title-head LOẠI 
+                        .filter-group
+                            each sub in allSub 
+                                .filter-item 
+                                    input(
+                                        type="checkbox" 
+                                        id=sub.id 
+                                        name="id" 
+                                        value=sub.id
+                                        filter-type
+                                    )
+                                    label(for=sub.id) #{sub.title}
+                .filter-button
+                    button(
+                        class="filter-submit btn"
+                        filter-submit
+                    ) LỌC
+
         
             .col-10
                 if(products.length > 0)
                     //- +product-grid(products) 
-                    div(class="product-item-grid grid-product" )
+                    div(class="product-item-grid grid-product mb-5" )
                         each item in products
                             .product-item
                                 .inner-image
                                     img(src=item.thumbnail, alt=item.title)
                                     if(item.featured == "1")
-                                        .inner-featured Nổi bật
+                                        .inner-featured(style="right: 0px") Nổi bật
                                 .inner-content
                                     .inner-title
                                         a(href=`/products/detail/${item.slug}`) #{item.title}

@@ -1,12 +1,12 @@
 mixin cart(miniCart)
+    
     span(class="cart-icon")
         <a href="/cart">
             <i class="fa-solid fa-bag-shopping"  style="font-size: 18px"></i>
-            span(class="cart-items") #{miniCart.products.length > 0 ? miniCart.totalQuantity : 0} 
+            span(class="cart-items") #{miniCart ? miniCart.totalQuantity : 0} 
         </a>
-        
-    div(class="list-item")
-        if(miniCart.products.length > 0)
+    div(class="list-item") 
+        if(miniCart && miniCart.totalQuantity != 0)
             each item, index in miniCart.products
                 div(class="border-list")
                     div(class="item-img")

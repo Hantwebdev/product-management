@@ -6,33 +6,40 @@ block main
 
     .container.my-5
         .row.justify-content-center
-            .col-8
-                h1(class="text-center") Đăng nhập tài khoản
+            .col-4.form-fill
+                div(class="text-title") ĐĂNG NHẬP TÀI KHOẢN
+                p Bạn chưa có tài khoản?
+                    a(href="/user/register" class="link-form") Đăng ký tại đây.
                 form(
                     action="/user/login"
                     method="POST"
                 )
                     div(class="form-group mb-4")
-                        label(for="email") Email
+                        label(for="email") Email 
+                            span(class="required") *
                         input(
                             type="email"
                             class="form-control"
+                            placeholder="Email"
                             id="email"
                             name="email"
                             required
                         )
-                    div(class="form-group mb-4")
+                    div(class="form-group mb-4 fill-line")
                         label(for="password") Mật khẩu
+                            span(class="required") *
                         input(
                             type="password"
                             class="form-control"
+                            placeholder="Mật khẩu"
                             id="password"
                             name="password"
                             required
                         )
+                    div(class="forgot-password") Quên mật khẩu? Nhấn vào
+                        a(href="/user/password/forgot" class="link-form") đây
                     div(class="form-group d-grid mb-2")
                         button(
                             type="submit"
-                            class="btn btn-primary btn-block"
+                            class="btn"
                         ) Đăng nhập
-                a(href="/user/password/forgot") Quên mật khẩu?

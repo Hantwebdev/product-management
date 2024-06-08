@@ -41,7 +41,7 @@ module.exports.index = async (req, res) => {
     // Sort
     let sort = {};
 
-    if(req.query.sortKey && req.query.sortValue){
+    if (req.query.sortKey && req.query.sortValue) {
         sort[req.query.sortKey] = req.query.sortValue;
     } else {
         sort.position = "desc";
@@ -59,18 +59,18 @@ module.exports.index = async (req, res) => {
             _id: product.createdBy.account_id
         });
 
-        if(user) {
+        if (user) {
             product.accountFullname = user.fullName
         }
 
         // Lấy in4 ng update gần nhất
         const updatedBy = product.updatedBy.slice(-1)[0];
-        if(updatedBy) {
+        if (updatedBy) {
             const userUpdated = await Account.findOne({
                 _id: updatedBy.account_id,
             });
 
-            updatedBy.accountFullName =  userUpdated.fullName;
+            updatedBy.accountFullName = userUpdated.fullName;
         }
     }
 
@@ -93,9 +93,9 @@ module.exports.changeStatus = async (req, res) => {
         updatedAt: new Date()
     }
 
-    await Product.updateOne({ _id: id }, { 
+    await Product.updateOne({ _id: id }, {
         status: status,
-        $push: { updatedBy: updatedBy} 
+        $push: { updatedBy: updatedBy }
     });
 
     req.flash("success", "Cập nhật trạng thái thành công!");
@@ -115,18 +115,18 @@ module.exports.changeMulti = async (req, res) => {
 
     switch (type) {
         case "active":
-            await Product.updateMany({ _id: { $in: ids } },{ 
+            await Product.updateMany({ _id: { $in: ids } }, {
                 status: "active",
-                $push: { updatedBy: updatedBy} 
-                }
+                $push: { updatedBy: updatedBy }
+            }
             );
             req.flash("success", `Cập nhật trạng thái thành công ${ids.length} sản phẩm`);
             break;
         case "inactive":
-            await Product.updateMany({ _id: { $in: ids } },{ 
+            await Product.updateMany({ _id: { $in: ids } }, {
                 status: "inactive",
-                $push: { updatedBy: updatedBy} 
-                }
+                $push: { updatedBy: updatedBy }
+            }
             );
             req.flash("success", `Cập nhật trạng thái thành công ${ids.length} sản phẩm`);
             break;
@@ -148,10 +148,10 @@ module.exports.changeMulti = async (req, res) => {
             for (const item of ids) {
                 let [id, position] = item.split("-");
                 position = parseInt(position);
-                
-                await Product.updateOne({ _id: id}, {
+
+                await Product.updateOne({ _id: id }, {
                     position: position,
-                    $push: { updatedBy: updatedBy}
+                    $push: { updatedBy: updatedBy }
                 })
             }
             req.flash("success", `Đã đổi vị trí thành công ${ids.length} sản phẩm`);
@@ -211,7 +211,7 @@ module.exports.createPost = async (req, res) => {
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
 
-    if(req.body.position == ""){
+    if (req.body.position == "") {
         const countProducts = await Product.countDocuments();
         req.body.position = countProducts + 1;
     } else {
@@ -225,7 +225,7 @@ module.exports.createPost = async (req, res) => {
     // if(req.file){
     //     req.body.thumbnail = `/uploads/${req.file.filename}`;
     // }
-    
+    req.body.priceDiscount = (req.body.price * (100 - req.body.discountPercentage)) / 100;
 
     const product = new Product(req.body);
     await product.save();
@@ -236,20 +236,20 @@ module.exports.createPost = async (req, res) => {
 // [GET] /admin/products/edit/:id
 
 module.exports.edit = async (req, res) => {
-    try{
+    try {
         const find = {
             deleted: false,
             _id: req.params.id
         }
-    
+
         const product = await Product.findOne(find);
-    
+
         const category = await ProductCategory.find({
             deleted: false
         });
-    
+
         const newCategory = createTreeHelper.tree(category);
-    
+
         res.render("admin/pages/products/edit", {
             pageTitle: "Chỉnh sửa sản phẩm",
             product: product,
@@ -267,21 +267,22 @@ module.exports.editPatch = async (req, res) => {
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
     req.body.position = parseInt(req.body.position);
+    req.body.priceDiscount = (req.body.price * (100 - req.body.discountPercentage)) / 100;
 
-    if(req.file){
+    if (req.file) {
         req.body.thumbnail = `/uploads/${req.file.filename}`;
     }
-    
+
     try {
         const updatedBy = {
             account_id: res.locals.user.id,
             updatedAt: new Date()
         }
 
-        await Product.updateOne({_id: req.params.id}, {
+        await Product.updateOne({ _id: req.params.id }, {
             ...req.body,
-            $push: { updatedBy: updatedBy}
-    });
+            $push: { updatedBy: updatedBy }
+        });
         req.flash("success", "Cập nhật thành công!");
     } catch (error) {
         req.flash("success", "Cập nhật thất bại!");
@@ -293,14 +294,14 @@ module.exports.editPatch = async (req, res) => {
 // [GET] /admin/products/detail/:id
 
 module.exports.detail = async (req, res) => {
-    try{
+    try {
         const find = {
             deleted: false,
             _id: req.params.id
         }
-    
+
         const product = await Product.findOne(find);
-    
+
         res.render("admin/pages/products/detail", {
             pageTitle: product.title,
             product: product

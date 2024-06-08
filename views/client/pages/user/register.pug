@@ -6,35 +6,43 @@ block main
 
     .container.my-5
         .row.justify-content-center
-            .col-8
-                h1(class="text-center") Đăng ký tài khoản
+            .col-4.form-fill
+                div(class="text-title") ĐĂNG KÝ TÀI KHOẢN
+                p Bạn đã có tài khoản?
+                    a(href="/user/login" class="link-form") Đăng nhập tại đây.
                 form(
                     action="/user/register"
                     method="POST"
                 )
                     div(class="form-group mb-4")
                         label(for="fullName") Họ và tên
+                            span(class="required") *
                         input(
                             type="text"
                             class="form-control"
+                            placeholder="Họ và tên"
                             id="fullName"
                             name="fullName"
                             required
                         )
                     div(class="form-group mb-4")
                         label(for="email") Email
+                            span(class="required") *
                         input(
                             type="email"
                             class="form-control"
+                            placeholder="Email"
                             id="email"
                             name="email"
                             required
                         )
                     div(class="form-group mb-4")
                         label(for="password") Mật khẩu
+                            span(class="required") *
                         input(
                             type="password"
                             class="form-control"
+                            placeholder="Mật khẩu"
                             id="password"
                             name="password"
                             required
@@ -42,5 +50,6 @@ block main
                     div(class="form-group d-grid mb-2")
                         button(
                             type="submit"
-                            class="btn btn-primary btn-block"
+                            class="btn"
+                            style="margin-top: 8px"
                         ) Đăng ký

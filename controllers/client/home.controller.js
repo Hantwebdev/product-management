@@ -33,7 +33,7 @@ module.exports.index = async (req, res) => {
     const productsNew = await Product.find({
         deleted: false,
         status: "active"
-    }).sort({ position: "desc" }).limit(6);
+    }).sort({ position: "desc" }).limit(10);
 
     const newProductsNew = productsHelper.priceNewProducts(productsNew);
 

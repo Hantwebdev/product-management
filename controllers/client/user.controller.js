@@ -2,6 +2,7 @@ const md5 = require("md5");
 const User = require("../../models/user.model");
 const ForgotPassword = require("../../models/forgot-password.model");
 const Cart = require("../../models/cart.model");
+const Order = require("../../models/order.model")
 
 const generateHelper = require("../../helpers/generate");
 const sendMailHelper = require("../../helpers/sendMail");
@@ -19,7 +20,7 @@ module.exports.registerPost = async (req, res) => {
         email: req.body.email
     });
 
-    if(existEmail) {
+    if (existEmail) {
         req.flash("error", "Email đã tồn tại!");
         res.redirect("back");
         return
@@ -52,19 +53,19 @@ module.exports.loginPost = async (req, res) => {
         deleted: false
     })
 
-    if(!user){
+    if (!user) {
         req.flash("error", "Email không tồn tại!");
         res.redirect("back");
         return
     }
 
-    if(md5(password) !== user.password){
+    if (md5(password) !== user.password) {
         req.flash("error", "Sai mật khẩu!");
         res.redirect("back");
         return
     }
 
-    if(user.status === "inactive"){
+    if (user.status === "inactive") {
         req.flash("error", "Tài khoản đang bị khoá!");
         res.redirect("back");
         return
@@ -74,7 +75,7 @@ module.exports.loginPost = async (req, res) => {
         user_id: user.id
     });
 
-    if(cart){
+    if (cart) {
         res.cookie("cartId", cart.id);
     } else {
         await Cart.updateOne({
@@ -94,7 +95,7 @@ module.exports.loginPost = async (req, res) => {
     });
 
     _io.once("connection", (socket) => {
-		socket.broadcast.emit("SERVER_RETURN_USER_STATUS_ONLINE", {
+        socket.broadcast.emit("SERVER_RETURN_USER_STATUS_ONLINE", {
             userId: user.id,
             status: "online"
         }
@@ -113,7 +114,7 @@ module.exports.logout = async (req, res) => {
     });
 
     _io.once("connection", (socket) => {
-		socket.broadcast.emit("SERVER_RETURN_USER_STATUS_ONLINE", {
+        socket.broadcast.emit("SERVER_RETURN_USER_STATUS_ONLINE", {
             userId: res.locals.user.id,
             status: "offline"
         }
@@ -141,7 +142,7 @@ module.exports.forgotPasswordPost = async (req, res) => {
         deleted: false
     });
 
-    if(!user) {
+    if (!user) {
         req.flash("error", "Email không tồn tại!");
         res.redirect("back");
         return
@@ -189,10 +190,10 @@ module.exports.otpPasswordPost = async (req, res) => {
         otp: otp
     });
 
-    if(!result) {
+    if (!result) {
         req.flash("error", "OTP không hợp lệ!");
         res.redirect("back");
-        return 
+        return
     }
 
     const user = await User.findOne({
@@ -242,7 +243,7 @@ module.exports.edit = async (req, res) => {
         deleted: false
     }
     const data = await User.findOne(find);
-    
+
     res.render("client/pages/user/edit", {
         pageTitle: "Chỉnh sửa thông tin tài khoản",
         data: data
@@ -253,7 +254,29 @@ module.exports.edit = async (req, res) => {
 module.exports.editPatch = async (req, res) => {
     const id = req.params.id;
 
-    await User.updateOne({_id: id}, req.body);
+    await User.updateOne({ _id: id }, req.body);
 
     res.redirect("back");
+};
+
+// [GET] /user/order/:id
+module.exports.getOrder = async (req, res) => {
+    const user_id = req.params.id;
+
+    const order = await Order.find({
+        user_id: user_id,
+        deleted: false
+    })
+
+    res.render("client/pages/user/order", {
+        pageTitle: "Danh sách đơn hàng",
+        order: order
+    })
+}
+
+// [GET] /user/password/change
+module.exports.changePassword = async (req, res) => {
+    res.render("client/pages/user/change-password", {
+        pageTitle: "Đổi mật khẩu",
+    });
 };

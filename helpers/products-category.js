@@ -1,5 +1,6 @@
 const ProductCategory = require("../models/product-category.model");
 
+// Lay tat ca sub menu
 module.exports.getSubCategory = async (parentId) => {
 	const getCategory = async (parentId) => {
 		const subs = await ProductCategory.find({

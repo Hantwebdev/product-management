@@ -6,16 +6,81 @@ const productsCategoryHelper = require("../../helpers/products-category");
 
 // [GET] /products
 module.exports.index = async (req, res) => {
-    const products = await Product.find({
+    // Filter
+    const listKeyType = [];
+    const listKeyPrice = [];
+    if (req.query.keyFilter) {
+        const key = req.query.keyFilter.split("AND");
+
+        if (key[0] != "") {
+            const keyType = key[0].split("OR");
+            keyType.forEach(item => {
+                listKeyType.push({ product_category_id: `${item}` });
+            });
+        } else {
+            listKeyType.push({ product_category_id: { $ne: "" } });
+        }
+
+        if (key[1] != "") {
+            const keyPrice = key[1].split("OR");
+            keyPrice.forEach(item => {
+                const price = item.split("-");
+                listKeyPrice.push({ $and: [{ priceDiscount: { $gte: `${+price[0]}` } }, { priceDiscount: { $lte: `${+price[1]}` } }] });
+            });
+        } else {
+            listKeyPrice.push(
+                { $and: [{ priceDiscount: { $gte: 0 } }, { priceDiscount: { $lte: 10000000 } }] }
+            )
+        }
+    }
+
+    const find = {
         status: "active",
-        deleted: false,
-    }).sort({ position: "desc" });
+        deleted: false
+    }
+    if (req.query.keyFilter) {
+        find.$and = [
+            { $or: listKeyType },
+            { $or: listKeyPrice }
+        ];
+    }
+
+    // Sort
+    let sort = {};
+
+    if (req.query.sortKey && req.query.sortValue) {
+        sort[req.query.sortKey] = req.query.sortValue;
+    } else {
+        sort.position = "desc";
+    }
+
+    const products = await Product.find(find).sort(sort);
 
     const newProducts = productsHelper.priceNewProducts(products);
 
+    // Lay tat ca sub category
+    const subs = await ProductCategory.find({
+        parent_id: "",
+        status: "active",
+        deleted: false,
+    });
+
+    let allSub = [];
+
+    for (const sub of subs) {
+        const childs = await ProductCategory.find({
+            parent_id: sub.id,
+            status: "active",
+            deleted: false,
+        });
+
+        allSub = allSub.concat(childs);
+    }
+
     res.render("client/pages/products/index", {
-        pageTitle: "Danh sách sản phẩm",
+        pageTitle: "SALE OUTLET - CHỈ ÁP DỤNG ONLINE",
         products: newProducts,
+        allSub: allSub
     });
 };
 
@@ -84,6 +149,14 @@ module.exports.detail = async (req, res) => {
 
 // [GET] /products/:slugCategory
 module.exports.category = async (req, res) => {
+    // sort
+    let sort = {};
+
+    if (req.query.sortKey && req.query.sortValue) {
+        sort[req.query.sortKey] = req.query.sortValue;
+    } else {
+        sort.position = "desc";
+    }
 
     const category = await ProductCategory.findOne({
         slug: req.params.slugCategory,
@@ -95,15 +168,53 @@ module.exports.category = async (req, res) => {
 
     const listSubCategoryId = listSubCategory.map(item => item.id);
 
-    const products = await Product.find({
+    // Filter
+    const listKeyType = [];
+    const listKeyPrice = [];
+    if (req.query.keyFilter) {
+        const key = req.query.keyFilter.split("AND");
+
+        if (key[0] != "") {
+            const keyType = key[0].split("OR");
+            keyType.forEach(item => {
+                listKeyType.push({ product_category_id: `${item}` });
+            });
+        } else {
+            listKeyType.push({ product_category_id: { $ne: "" } });
+        }
+
+        if (key[1] != "") {
+            const keyPrice = key[1].split("OR");
+            keyPrice.forEach(item => {
+                const price = item.split("-");
+                listKeyPrice.push({ $and: [{ priceDiscount: { $gte: `${+price[0]}` } }, { priceDiscount: { $lte: `${+price[1]}` } }] });
+            });
+        } else {
+            listKeyPrice.push(
+                { $and: [{ priceDiscount: { $gte: 0 } }, { priceDiscount: { $lte: 10000000 } }] }
+            )
+        }
+    }
+
+    const find = {
         product_category_id: { $in: [category.id, ...listSubCategoryId] },
         deleted: false
-    }).sort({ position: "desc" });
+    }
+    if (req.query.keyFilter) {
+        find.$and = [
+            { $or: listKeyType },
+            { $or: listKeyPrice }
+        ];
+    }
+
+    const products = await Product.find(find).sort(sort);
 
     const newProducts = productsHelper.priceNewProducts(products);
+
 
     res.render("client/pages/products/index", {
         pageTitle: category.title,
         products: newProducts,
+        allSub: listSubCategory
     });
 };

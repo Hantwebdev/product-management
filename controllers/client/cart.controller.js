@@ -46,39 +46,41 @@ module.exports.addPost = async (req, res) => {
         _id: cartId
     })
 
-    const existProductInCart = cart.products.find(item => item.product_id == productId);
-    if (existProductInCart) {
-        const quantityNew = quantity + existProductInCart.quantity;
+    if (cart) {
+        const existProductInCart = cart.products.find(item => item.product_id == productId);
+        if (existProductInCart) {
+            const quantityNew = quantity + existProductInCart.quantity;
 
-        await Cart.updateOne(
-            {
-                _id: cartId,
-                "products.product_id": productId,
-            },
-            {
-                $set: {
-                    "products.$.quantity": quantityNew,
+            await Cart.updateOne(
+                {
+                    _id: cartId,
+                    "products.product_id": productId,
                 },
-            });
-    } else {
-        const objectCart = {
-            product_id: productId,
-            quantity: quantity
-        };
+                {
+                    $set: {
+                        "products.$.quantity": quantityNew,
+                    },
+                });
+        } else {
+            const objectCart = {
+                product_id: productId,
+                quantity: quantity
+            };
 
-        await Cart.updateOne(
-            {
-                _id: cartId
-            },
-            {
-                $push: { products: objectCart }
-            }
-        );
+            await Cart.updateOne(
+                {
+                    _id: cartId
+                },
+                {
+                    $push: { products: objectCart }
+                }
+            );
+        }
+
+        req.flash("success", "Đã thêm sản phẩm vào giỏ hàng!");
+
+        res.redirect("back");
     }
-
-    req.flash("success", "Đã thêm sản phẩm vào giỏ hàng!");
-
-    res.redirect("back");
 }
 
 // [GET] /cart/delete/:productId

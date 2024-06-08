@@ -3,20 +3,31 @@ include ../../mixins/box-head.pug
 
 block main
     .container.my-3
-        .row
-            .col-12
-                +box-head("Thông tin tài khoản")
-        if(user.avatar)
-            img(
-                src=user.avatar 
-                style="height: 100px; margin-bottom: 15px;"
-                class="mb-4"
-            )
+        .row.block-profile
+            .col-3
+                .block-menu
+                    .title-account TRANG TÀI KHOẢN
+                    p Xin chào, 
+                        span(class="name-user") #{user.fullName} !
+                    ul 
+                        li(class="title-info")
+                            a(href="/user/info") Thông tin tài khoản
+                        li(class="title-info")
+                            a(href=`/user/edit/${user.id}`) Cập nhật tài khoản
+                        li(class="title-info")
+                            a(href=`/user/order/${user.id}`) Đơn hàng của bạn
+                        li(class="title-info")
+                            a(href="/user/password/change") Đổi mật khẩu
 
-        div(class="mb-4") <b>Họ tên:</b> #{user.fullName}
-        div(class="mb-4") <b>Email:</b> #{user.email}
-
-        a(
-            class="btn btn-warning btn-sm"
-            href=`/user/edit/${user.id}`
-        ) Cập nhật
+            .col-9
+                .block-info 
+                    .block-content 
+                        .img-account
+                            if(user.avatar)
+                                img(
+                                    src=user.avatar
+                                )
+                        .info-account 
+                            .title-account THÔNG TIN TÀI KHOẢN
+                            .name-account <b>Họ tên:</b> #{user.fullName}
+                            .email-account <b>Email:</b> #{user.email}
