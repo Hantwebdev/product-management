@@ -3,15 +3,26 @@ header.header
         .row.align-items-center 
             .col-3 
                 .inner-logo 
-                    a(href="/admin/dashboard") ADMIN 
+                    a(href="/admin/dashboard")
+                        img(src="/admin/images/logo.svg")
 
             .col-9
-                div(class = "text-end")
-                    a(
-                        href=`${prefixAdmin}/my-account`
-                        class="btn btn-primary btn-sm me-2"
-                    ) #{user.fullName}
-                    a(
-                        href=`${prefixAdmin}/auth/logout`
-                        class="btn btn-danger btn-sm"
-                    ) Đăng xuất
+                div(class="sub-menu text-end")
+                    span  
+                        | Xin chào, #{user.fullName} !
+                    <i class="fa-solid fa-user" style="font-size: 18px"></i>
+                        ul(style="width: 120px")
+                            li 
+                                a(href=`${prefixAdmin}/my-account`) Tài khoản
+                            li 
+                                a(href=`${prefixAdmin}/auth/logout`) Đăng xuất
+                
+                //- div(class = "text-end")
+                //-     a(
+                //-         href=`${prefixAdmin}/my-account`
+                //-         class="btn btn-primary btn-sm me-2"
+                //-     ) #{user.fullName}
+                //-     a(
+                //-         href=`${prefixAdmin}/auth/logout`
+                //-         class="btn btn-danger btn-sm"
+                //-     ) Đăng xuất

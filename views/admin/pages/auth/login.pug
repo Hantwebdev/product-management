@@ -3,36 +3,40 @@ include ../../mixins/alert.pug
 
 block main
     +alert-error(5000)
-
+    +alert-success(5000)
+    
     .container.my-5
         .row.justify-content-center
-            .col-8
-                h1(class="text-center") Đăng nhập
+            .col-6.form-fill
+                div(class="text-title") ĐĂNG NHẬP TÀI KHOẢN
                 form(
                     action=`${prefixAdmin}/auth/login`
                     method="POST"
                 )
-                    div(class="form-group")
-                        label(for="email") Email
+                    div(class="form-group mb-4")
+                        label(for="email") Email 
+                            span(class="required") *
                         input(
                             type="email"
                             class="form-control"
+                            placeholder="Email"
                             id="email"
                             name="email"
                             required
                         )
-                    div(class="form-group")
+                    div(class="form-group mb-4 fill-line")
                         label(for="password") Mật khẩu
+                            span(class="required") *
                         input(
                             type="password"
                             class="form-control"
+                            placeholder="Mật khẩu"
                             id="password"
                             name="password"
                             required
                         )
-                    div(class="form-group")
+                    div(class="form-group mb-2" style="display: grid")
                         button(
                             type="submit"
-                            class="btn btn-primary btn-block"
+                            class="btn"
                         ) Đăng nhập
-    

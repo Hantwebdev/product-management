@@ -172,3 +172,34 @@ if (sort) {
     }
 }
 // End Sort
+
+// Navbar
+const listSider = document.querySelectorAll(".sider-item");
+const url = window.location.href;
+listSider.forEach((item) => {
+    const data_item = item.getAttribute("data-nav");
+    if (data_item == "products-category") {
+        if (url.indexOf("products") > -1 && url.indexOf("category") > -1) {
+            item.classList.add("active")
+        }
+    }
+    else if (data_item == "products") {
+        if (url.indexOf("products") > -1 && url.indexOf("category") == -1) {
+            item.classList.add("active")
+        }
+    }
+    else if (data_item == "permissions") {
+        if (url.indexOf("roles") > -1 && url.indexOf("permissions") > -1) {
+            item.classList.add("active")
+        }
+    }
+    else if (data_item == "roles") {
+        if (url.indexOf("roles") > -1 && url.indexOf("permissions") == -1) {
+            item.classList.add("active")
+        }
+    }
+    else if (url.indexOf(data_item) > -1) {
+        item.classList.add("active");
+    }
+})
+// End Navbar
