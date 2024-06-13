@@ -7,7 +7,6 @@ const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 const createTreeHelper = require("../../helpers/createTree");
 // [GET] /admin/products
-
 module.exports.index = async (req, res) => {
     const filterStatus = filterStatusHelper(req.query);
     //  console.log(req.query.status);
@@ -30,7 +29,7 @@ module.exports.index = async (req, res) => {
 
     let objectPagination = paginationHelper(
         {
-            limitItems: 4,
+            limitItems: 6,
             currentPage: 1,
         },
         req.query,
@@ -188,7 +187,6 @@ module.exports.deleteItem = async (req, res) => {
 };
 
 // [GET] /admin/products/create
-
 module.exports.create = async (req, res) => {
     let find = {
         deleted: false

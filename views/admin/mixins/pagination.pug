@@ -1,12 +1,12 @@
 mixin pagination(pagination)
-    nav 
+    nav
         ul(class="pagination")
             if(pagination.currentPage > 1)
                 li(class="page-item")
                     button(
-                        class="page-link"
+                        class="page-link button-prev"
                         button-pagination=pagination.currentPage - 1
-                    ) Trang trước
+                    ) <i class="fa-solid fa-chevron-left"></i>
 
             - for(var i = 1; i <= pagination.totalPage; i++)
                 li(class=`page-item ${pagination.currentPage == i ? "active" : ""}`)
@@ -18,6 +18,6 @@ mixin pagination(pagination)
             if(pagination.currentPage < pagination.totalPage)
                 li(class="page-item")
                     button(
-                        class="page-link"
+                        class="page-link  button-next"
                         button-pagination=pagination.currentPage + 1
-                    ) Kế tiếp 
+                    ) <i class="fa-solid fa-chevron-right"></i>

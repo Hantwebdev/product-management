@@ -6,10 +6,10 @@ header.header
                     a(href="/admin/dashboard")
                         img(src="/admin/images/logo.svg")
 
-            .col-9
+            .col-9(style="display: flex; justify-content: end")
+                span  
+                    | Xin chào, #{user.fullName} !
                 div(class="sub-menu text-end")
-                    span  
-                        | Xin chào, #{user.fullName} !
                     <i class="fa-solid fa-user" style="font-size: 18px"></i>
                         ul(style="width: 120px")
                             li 

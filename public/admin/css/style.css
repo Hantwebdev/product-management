@@ -12,8 +12,301 @@
 	--secondary-color: #c2000c;
 }
 
+/* Common */
 a {
     text-decoration: none;
+}
+
+.title-heading {
+    color: #344767;
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.card .title-header {
+    color: #344767;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.card {
+    border: none;
+    padding: 10px;
+    margin-right: 20px;
+    box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+}
+
+.card-status, .card-status:hover {
+    border: 1px solid #344767;
+    color: #344767;
+    font-weight: 600;
+}
+
+.card .active {
+    background: #344767;
+    color: #fff;
+}
+
+.card .card-body .input-group  input {
+    border: 1px solid #d2d6da;
+    border-right: none;
+}
+
+.card .card-body .input-group-append button {
+    border: 1px solid #d2d6da;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+}
+
+.btn-add-new {
+    position: relative;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid #344767;
+    right: -190px;
+}
+
+.btn-add-new i {
+    font-size: 14px;
+    padding-right: 5px;
+}
+
+.btn-add-new:hover {
+    background: #344767;
+    color: #fff;
+}
+
+.table-common th {
+    color: #495057;
+    font-size: 16px;
+}
+
+.table-common input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+}
+
+.table-common input[type="checkbox"]:checked {
+	accent-color: #344767;
+	font-size: 10px;
+}
+
+.table-common tbody {
+    font-size: 15px;
+    color: #495057;
+}
+
+.pagination {
+    margin: 30px 64px 0 0;
+    display: flex;
+    justify-content: end;
+    gap: 15px;
+}
+
+.pagination li button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    color: #8898aa;
+    font-size: 14px;
+    border: 1px solid #8898aa;
+}
+
+.pagination li button:hover {
+    color: #8898aa;
+    background-color: #dee2e6;
+    border: 1px solid #dee2e6;
+}
+
+.pagination li button, .page-item:first-child .page-link, .page-item:last-child .page-link {
+    border-radius: 9999px;
+}
+
+.pagination .active {
+    border-radius: 9999px;
+    color: #fff;
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.pagination .active button {
+    background: #344767;
+    border: none;
+}
+
+/* Sort */
+
+.sort {
+    right: -80px;
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.sort .title {
+	margin-right: 5px;
+	font-size: 16px;
+	width: 70px;
+}
+
+.sort select {
+	font-size: 15px;
+	width: 160px;
+	padding: 3px 6px;
+	border: 1px solid #000;
+	border-radius: 0;
+	cursor: pointer;
+}
+
+.sort select:focus {
+	box-shadow: none;
+	border: 2px solid #000;
+	border-radius: 3px;
+}
+
+.sort::after {
+	position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    top: 16px;
+    right: 152px;
+    border-top: 6px solid;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+
+/* Input select position */
+.select-position {
+	display: inline-flex;
+	border: 1px solid #ced4da;
+    height: 35px;
+    align-items: center;
+	border-radius: 5px;
+}
+.select-position input {
+	padding: 0;
+	height: 30px;
+	text-align: center;
+	border: none;
+	font-size: 15px;
+    width: 20px;
+}
+
+.select-position input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+  }
+
+.select-position span {
+	cursor: pointer;
+	font-size: 12px;
+	padding: 10px;
+}
+
+/* form-change-multi */
+.form-change-multi {
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.form-change-multi select {
+    margin-right: 10px;
+	font-size: 15px;
+	width: 210px;
+	padding: 7px 6px;
+	border: 1px solid #000;
+	border-radius: 2;
+	cursor: pointer;
+}
+
+.form-change-multi select:focus {
+	box-shadow: none;
+	border: 2px solid #000;
+	border-radius: 3px;
+}
+
+.form-change-multi::after {
+	position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    top: 16px;
+    left: 183px;
+    border-top: 6px solid;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+
+.form-change-multi button, .form-change-multi button:hover {
+    font-size: 15px;
+    background: #344767;
+    color: #fff;
+}
+
+/* .button-action  */
+/* .button-action {
+    display: flex;
+    gap: 5px;
+} */
+
+.button-action a, .button-action button {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.button-action .btn-detail {
+    color: #344767;
+}
+
+.button-action .btn-detail:hover {
+    background: #344767;
+    color: #fff;
+}
+
+.button-action .btn-detail i {
+    font-size: 14px;
+}
+
+.button-action .btn-edit {
+    color: #008080;
+    /* color: #483D8B; */
+}
+
+.button-action .btn-edit:hover {
+    background: #008080;
+    color: #fff;
+    /* color: #483D8B; */
+}
+
+.button-action .btn-delete {
+    color: #DC143C;
+}
+
+.button-action .btn-delete:hover {
+    background: #DC143C;
+    color: #fff;
+}
+
+/* button-change-status */
+.button-status-active {
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    background: #2E8B57;
+    color: #fff;
+}
+.button-status-inactive {
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    background: #DC143C;
+    color: #fff;
 }
 
 /* Header */
@@ -44,6 +337,7 @@ a {
 /* Body */
 .body {
     background: #f8f9fa;
+    min-height: 100vh;
 }
 
 .body .sider {
@@ -52,7 +346,7 @@ a {
     position: fixed;
 }
 
-.body .main {
+.body .main { 
     margin: 0 15px 15px;
     position: relative;
 }

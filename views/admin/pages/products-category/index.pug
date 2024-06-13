@@ -1,52 +1,67 @@
 extends ../../layouts/default.pug
 include ../../mixins/table-tree.pug
+include ../../mixins/pagination.pug
+include ../../mixins/alert.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/moment.pug
+include ../../mixins/sort.pug
+
 block main
     if(role.permissions.includes("products-category_view"))
-        h1 Danh mục sản phẩm
+        +alert-success("5000")
+        
+        div(class="title-heading") Danh mục
 
-        .card.mb-3 
-            .card-header Bộ lọc và tìm kiếm
+        .card.mb-5 
             .card-body
-                .row
-                    .col-6
+                div(class="title-header" style="margin-left: 3px") Bộ lọc và tìm kiếm
+                .row.pb-3
+                    .col-8
                         each item in filterStatus
                             button(
-                                class=`btn btn-sm ms-1 btn-outline-success ${item.class}`
+                                class=`btn btn-sm me-2 card-status ${item.class}`
                                 button-status=item.status
                             ) #{item.name}
 
-                    .col-6 
+                    .col-4
                         form(id="form-search")
                             .input-group 
                                 input(
                                     type="text"
-                                    placeholder="Nhập từ khoá"
+                                    placeholder="Nhập từ khoá..."
                                     name="keyword"
                                     class="form-control"
                                     value=keyword
                                 )
                                 .input-group-append 
                                     button(
-                                        class="btn btn-success"
+                                        class="btn"
                                         type="submit"
-                                    ) Tìm
+                                    ) 
+                                        <i class="fa-solid fa-magnifying-glass"></i>
 
-                .row
+        .card.mb-3 
+            .card-body
+                .row.mb-4
                     .col-8  
+                        div(class="title-header") Danh mục sản phẩm
                     .col-4 
                         if(role.permissions.includes("products-category_create"))
                             a(
                                 href=`${prefixAdmin}/products-category/create`
-                                class="btn btn-outline-success"
-                            ) + Thêm mới
-        .card.mb-3 
-            .card-header Danh mục sản phẩm
-            .card-body
+                                class="btn btn-add-new"
+                            ) <i class="fa-solid fa-plus"></i> Thêm mới
+                .row.mb-5
+                    .col-8  
+                        +form-change-multi(`${prefixAdmin}/products-category/change-multi?_method=PATCH`)
+                    .col-4 
+                        +sort-category()
                 table(
-                    class="table table-hover table-sm text-center align-middle"
+                    class="table  table-sm text-center align-middle table-common"
                     checkbox-multi
+                    style="font-size: 14px"
                 )
-                    thead 
+                    thead(style="font-size: 15px") 
                         tr 
                             th 
                                 input(type="checkbox", name="checkall")
@@ -55,9 +70,21 @@ block main
                             th Tiêu đề
                             th Vị trí
                             th Trạng thái 
+                            th Người tạo
+                            th Người cập nhật
                             th Hành động
                     tbody 
                         +table-tree(records)  
+                        
+                    
+                +pagination(pagination) 
+
+        form(
+            action=""
+            method="POST"
+            id="form-change-status"
+            data-path=`${prefixAdmin}/products-category/change-status`
+        )
 
         form(
             action=""
@@ -65,4 +92,5 @@ block main
             id="form-delete-item"
             data-path=`${prefixAdmin}/products-category/delete`
         )
+
         script(src="/admin/js/product-category.js") 

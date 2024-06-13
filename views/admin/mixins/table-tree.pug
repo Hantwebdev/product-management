@@ -17,47 +17,64 @@ mixin table-tree(items, level = 1)
                     height="auto"
                 )
             td(class="text-start") #{prefix}#{item.title}
-            td 
-                input(
-                    type="number"
-                    value = item.position 
-                    style="width: 60px"
-                    min = "1"
-                    name="position"
-                )
+            td
+                div(class="select-position")
+                    span(class="reduce-btn")
+                        <i class="fa-solid fa-minus"></i>
+                    input(
+                        class="form-control"
+                        type="number"
+                        name="position"
+                        value=item.position 
+                        min="1"
+                    )
+                    span(class="plus-btn") 
+                        <i class="fa-solid fa-plus"></i>
+                            
             td
                 if(role.permissions.includes("products-category_edit")) 
                     if(item.status == "active")
                         a(
+                            class = "button-status-active"
                             href="javascript:;" 
                             data-status="active"
                             data-id = item.id
                             button-change-status
-                            class="badge bg-success"
-                        ) Hoạt động
+                        ) Active
                     else
                         a(
+                            class = "button-status-inactive"
                             href="javascript:;" 
                             data-status="inactive"
                             data-id = item.id
                             button-change-status
-                            class="badge bg-danger"
-                        ) Dừng hoạt động
+                        ) Inactive
             td 
-                a(
-                    href=`${prefixAdmin}/products-category/detail/${item.id}`
-                    class="btn btn-secondary btn-sm"
-                    ) Chi tiết
-                if(role.permissions.includes("products-category_edit"))
+                p #{item.accountFullname}
+                p 
+                    +formatDate(item.createdBy.createdAt)
+            td 
+                - const updatedBy = item.updatedBy.slice(-1)[0]
+                if(updatedBy)
+                    p #{updatedBy.accountFullName}
+                    p 
+                        +formatDate(updatedBy.updatedAt)
+            td
+                .button-action 
                     a(
-                        href=`${prefixAdmin}/products-category/edit/${item.id}`
-                        class="btn btn-warning btn-sm ms-2"
-                        ) Sửa
-                if(role.permissions.includes("products-category_delete"))
-                    button(
-                        class="btn btn-danger btn-sm ms-2"
-                        button-delete
-                        data-id = item.id
-                    ) Xoá  
+                        href=`${prefixAdmin}/products-category/detail/${item.id}`
+                        class="btn btn-detail btn-sm"
+                        ) <i class="fa-solid fa-circle-info"></i> DETAIL
+                    if(role.permissions.includes("products-category_edit"))
+                        a(
+                            href=`${prefixAdmin}/products-category/edit/${item.id}`
+                            class="btn btn-edit btn-sm"
+                            ) <i class="fa-solid fa-pencil"></i> EDIT
+                    if(role.permissions.includes("products-category_delete"))
+                        button(
+                            class="btn btn-delete btn-sm"
+                            button-delete
+                            data-id = item.id
+                        ) <i class="fa-solid fa-trash"></i> DETELE 
         if item.children && item.children.length > 0
             +table-tree(item.children, level + 1)

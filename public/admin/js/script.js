@@ -1,7 +1,4 @@
-
-
 // Pagination
-
 const buttonsPagination = document.querySelectorAll("[button-pagination]");
 if (buttonsPagination) {
     let url = new URL(window.location.href);
@@ -104,7 +101,6 @@ if (formChangeMulti) {
 
 // Show Alert
 const showAlert = document.querySelector("[show-alert]");
-
 if (showAlert) {
     const time = parseInt(showAlert.getAttribute("data-time"));
     const closeAlert = showAlert.querySelector("[close-alert]");
@@ -203,3 +199,27 @@ listSider.forEach((item) => {
     }
 })
 // End Navbar
+
+// select-position
+const listSelectPosition = document.querySelectorAll(".select-position");
+if (listSelectPosition) {
+    listSelectPosition.forEach(selectPosition => {
+        const buttonReduce = selectPosition.querySelector(".reduce-btn");
+        const buttonPlus = selectPosition.querySelector(".plus-btn");
+        const input = selectPosition.querySelector("input");
+        var position = parseInt(input.value);
+        buttonReduce.addEventListener("click", () => {
+            if (position > 1) {
+                position -= 1;
+            }
+            console.log(position);
+            input.setAttribute("value", position);
+        })
+        buttonPlus.addEventListener("click", () => {
+            position += 1;
+
+            console.log(position);
+            input.setAttribute("value", position);
+        })
+    })
+}

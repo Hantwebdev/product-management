@@ -16,31 +16,31 @@ module.exports = (app) => {
 
     app.use(
         PATH_ADMIN + "/dashboard",
-        authMiddleware.requireAuth, 
+        authMiddleware.requireAuth,
         dashboardRoutes
     );
 
     app.use(
-        PATH_ADMIN + "/products", 
-        authMiddleware.requireAuth, 
+        PATH_ADMIN + "/products",
+        authMiddleware.requireAuth,
         productRoutes
     );
 
     app.use(
         PATH_ADMIN + "/products-category",
-        authMiddleware.requireAuth,  
+        authMiddleware.requireAuth,
         productCategoryRoutes
     );
 
     app.use(
         PATH_ADMIN + "/roles",
-        authMiddleware.requireAuth,  
+        authMiddleware.requireAuth,
         roleRoutes
     );
 
     app.use(
         PATH_ADMIN + "/accounts",
-        authMiddleware.requireAuth,  
+        authMiddleware.requireAuth,
         accountRoutes
     );
 
@@ -48,13 +48,13 @@ module.exports = (app) => {
 
     app.use(
         PATH_ADMIN + "/my-account",
-        authMiddleware.requireAuth,  
+        authMiddleware.requireAuth,
         myAccountRoutes
-        );
+    );
 
     app.use(
         PATH_ADMIN + "/settings",
-        authMiddleware.requireAuth,  
+        authMiddleware.requireAuth,
         settingRoutes
-        );
+    );
 };

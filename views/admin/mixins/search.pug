@@ -3,13 +3,14 @@ mixin search(keyword)
         .input-group 
             input(
                     type="text"
-                    placeholder="Nhập từ khoá"
+                    placeholder="Nhập từ khoá..."
                     name="keyword"
                     class="form-control"
                     value=keyword
                 )
             .input-group-append 
                 button(
-                    class="btn btn-success"
+                    class="btn"
                     type="submit"
-                ) Tìm
+                ) 
+                    <i class="fa-solid fa-magnifying-glass"></i>
