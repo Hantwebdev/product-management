@@ -298,11 +298,17 @@ module.exports.detail = async (req, res) => {
             _id: req.params.id
         }
 
-        const product = await Product.findOne(find);
+        var product = await Product.findOne(find);
+
+        const category = await ProductCategory.findOne({
+            _id: product.product_category_id,
+            deleted: false
+        })
 
         res.render("admin/pages/products/detail", {
             pageTitle: product.title,
-            product: product
+            product: product,
+            category: category
         });
     } catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/products`);

@@ -1,0 +1,23 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+    div(class="title-heading ms-3") Thông tin tài khoản
+    .block-info 
+        .block-content 
+            .img-account
+                if(account.avatar)
+                    img(
+                        src=account.avatar
+                    )
+            .info-account 
+                .info-account <b>Họ tên:</b> #{account.fullName}
+                .info-account <b>Email:</b> #{account.email}
+                .info-account <b>Số điện thoại:</b> #{account.phone}
+                .info-account <b>Phân quyền:</b> #{role.title}
+                .info-account <b>Trạng thái:</b> #{account.status}
+
+                a(
+                    href=`${prefixAdmin}/accounts`
+                    class="btn btn-back mt-4"
+                ) <i class="fa-solid fa-arrow-left"></i> Quay lại

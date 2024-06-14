@@ -3,7 +3,7 @@ include ../../mixins/alert.pug
 
 block main
     if(role.permissions.includes("roles_edit"))
-        h1(class="mb-4") Chỉnh sửa nhóm quyền
+        div(class="title-heading") Chỉnh sửa nhóm quyền
 
         +alert-success(5000)
         +alert-error(5000)
@@ -11,6 +11,7 @@ block main
         form(
             action=`${prefixAdmin}/roles/edit/${data.id}?_method=PATCH`
             method="POST"
+            class="edit-common"
         )
             div(class="form-group")
                 label(for="title") Tiêu đề
@@ -31,8 +32,13 @@ block main
                     name="description"
                     value=data.description
                 )
-            div(class="form-group")
+            div(class="form-group mt-4")
+                a(
+                    href=`${prefixAdmin}/roles`
+                    class="btn btn-back me-4"
+                ) <i class="fa-solid fa-arrow-left"></i> Quay lại
+
                 button(
                     type="submit"
-                    class="btn btn-primary"
+                    class="btn btn-update"
                 ) Cập nhật

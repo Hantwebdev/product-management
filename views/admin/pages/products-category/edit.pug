@@ -4,7 +4,7 @@ include ../../mixins/select-tree.pug
 
 block main
     if(role.permissions.includes("products-category_edit"))
-        h1(class="mb-4") Chỉnh sửa danh mục sản phẩm 
+        div(class="title-heading") Chỉnh sửa danh mục 
 
         +alert-error(3000)
 
@@ -12,6 +12,7 @@ block main
             action=`${prefixAdmin}/products-category/edit/${data.id}?_method=PATCH`
             method="POST"
             enctype="multipart/form-data"
+            class="edit-common"
         )
             div(class="form-group mb-3")
                 label(for="title") Tiêu đề
@@ -62,16 +63,22 @@ block main
                 )
             div(class="form-group mb-3")
                 label(for="position") Vị trí
-                input(
-                    type="number"
-                    class="form-control"
-                    id="position"
-                    name="position"
-                    placeholder="Tự động tăng"
-                    min="1"
-                    value=data.position
-                )
-            div(class="form-group form-check form-check-inline mb-3")
+                div(class="select-position ms-4")
+                    span(class="reduce-btn")
+                        <i class="fa-solid fa-minus"></i>
+                    input(
+                        style="background: transparent"
+                        class="form-control"
+                        type="number"
+                        id="position"
+                        name="position"
+                        placeholder="Tự động tăng"
+                        value=data.position 
+                        min="1"
+                    )
+                    span(class="plus-btn") 
+                        <i class="fa-solid fa-plus"></i>
+            div(class="form-group form-check form-check-inline mb-4 mt-3")
                 input(
                     type="radio"
                     class="form-check-input"
@@ -81,7 +88,7 @@ block main
                     checked=(data.status == "active" ? true : false)
                 )
                 label(for="statusActive" class="form-check-label") Hoạt động
-            div(class="form-group form-check form-check-inline mb-3")
+            div(class="form-group form-check form-check-inline mb-4 mt-3")
                 input(
                     type="radio"
                     class="form-check-input"
@@ -92,7 +99,12 @@ block main
                 )
                 label(for="statusInActive" class="form-check-label") Dừng hoạt động
             div(class="form-group")
+                a(
+                    href=`${prefixAdmin}/products-category`
+                    class="btn btn-back me-4"
+                ) <i class="fa-solid fa-arrow-left"></i> Quay lại
+
                 button(
                     type="submit"
-                    class="btn btn-primary"
+                    class="btn btn-update"
                 ) Cập nhật

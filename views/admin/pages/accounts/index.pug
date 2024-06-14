@@ -2,22 +2,22 @@ extends ../../layouts/default.pug
 
 block main 
     if(role.permissions.includes("accounts_view"))
-        h1(class="mb-4") Danh sách tài khoản 
+        div(class="title-heading") Danh sách tài khoản 
 
         .card.mb-3 
-            .card-header Danh sách 
             .card-body 
-                .row 
+                .row.mb-4
                     .col-8 
-                    .col-4.text-right 
+                        div(class="title-header") Danh sách 
+                    .col-4
                         if(role.permissions.includes("accounts_create"))
                             a(
                                 href=`${prefixAdmin}/accounts/create`
-                                class="btn btn-outline-success"
-                            ) + Thêm mới
+                                class="btn  btn-add-new"
+                            ) <i class="fa-solid fa-plus"></i> Thêm mới
 
                 table(
-                    class="table table-hover table-sm text-center align-middle"
+                    class="table table-sm text-center align-middle"
                 )
                     thead
                         tr
@@ -31,15 +31,15 @@ block main
 
                     tbody
                         each item, index in records
-                            tr 
-                                td #{index+1}
-                                td
-                                    img(
-                                        src=item.avatar
-                                        alt=item.fullName
-                                        width="100px"
-                                        height="auto"
-                                    )
+                            tr(style="padding: 10px") 
+                                td  #{index+1}
+                                td  
+                                    .thumbnail-account
+                                        img(
+                                            src=item.avatar
+                                            alt=item.fullName
+                                            style = "width: 100%; height: 100%; object-fit: cover"
+                                        )
                                 td #{item.fullName}
                                 td #{item.role.title}
                                 td #{item.email}
@@ -48,26 +48,28 @@ block main
                                         if (item.status === "active")
                                             a(
                                                 href="javascript:;"
-                                                class="badge bg-success"
                                                 data-status="active"
-                                            ) Hoạt động
+                                                class = "button-status-active"
+                                            ) Active
                                         else
                                             a(
                                                 href="javascript:;"
-                                                class="badge bg-danger"
+                                                class = "button-status-inactive"
                                                 data-status="inactive"
-                                            ) Dừng hoạt động
+                                            ) Inactive
                                 td
-                                    a(
-                                        class="btn btn-secondary btn-sm"
-                                        href=`${prefixAdmin}/accounts/detail/${item.id}`
-                                    ) Chi tiết
-                                    if(role.permissions.includes("accounts_edit"))
-                                        a(
-                                            class="btn btn-warning btn-sm ms-2"
-                                            href=`${prefixAdmin}/accounts/edit/${item.id}`
-                                        ) Sửa
-                                    if(role.permissions.includes("accounts_delete"))
-                                        button(
-                                            class="btn btn-danger btn-sm ms-2"
-                                        ) Xóa
+                                    .button-action
+                                        if(role.permissions.includes("accounts_view"))
+                                            a(
+                                                class="btn btn-detail btn-sm"
+                                                href=`${prefixAdmin}/accounts/detail/${item.id}`
+                                            ) <i class="fa-solid fa-circle-info"></i> DETAIL
+                                        if(role.permissions.includes("accounts_edit"))
+                                            a(
+                                                class="btn btn-edit btn-sm ms-1"
+                                                href=`${prefixAdmin}/accounts/edit/${item.id}`
+                                            ) <i class="fa-solid fa-pencil"></i> EDIT
+                                        if(role.permissions.includes("accounts_delete"))
+                                            button(
+                                                class="btn btn-delete btn-sm ms-1"
+                                            ) <i class="fa-solid fa-trash"></i> DETELE 

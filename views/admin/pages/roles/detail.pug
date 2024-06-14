@@ -2,18 +2,19 @@ extends ../../layouts/default.pug
 
 block main 
     if(record.title)
-        h1(class="mb-4") #{record.title}
+        div(class="title-heading") #{record.title}
 
     if(record.description)
-        div(class="mb-4") Mô tả: <b>#{record.description}</b>
+        div(class="mb-4") <b>Mô tả:</b> #{record.description}
 
-    div(class="mb-4") Số lượng: <b>#{accounts.length}</b>
+    div(class="mb-4") <b>Số lượng:</b> #{accounts.length}
 
     .card.mb-3
-        .card-header Danh sách
         .card-body
+            div(class="title-header mb-5 ") Danh sách
+
             table(
-                class="table table-hover table-sm text-center align-middle"
+                class="table table-sm text-center align-middle"
             )
                 thead
                     tr
@@ -40,11 +41,11 @@ block main
                                 td #{item.phone}
                                 td 
                                     if(item.status === "active")
-                                        span(class="badge bg-success") Hoạt động
+                                        span(class="button-status-active") Hoạt động
                                     else 
-                                        span(class="badge bg-danger") Dừng hoạt động
+                                        span(class="button-status-inactive") Dừng hoạt động
                         
     a(
         href=`${prefixAdmin}/roles`
-        class="btn btn-warning"
-    ) Quay lại
+        class="btn btn-back mt-4"
+    ) <i class="fa-solid fa-arrow-left"></i> Quay lại

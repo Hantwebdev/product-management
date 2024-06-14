@@ -1,5 +1,5 @@
 const express = require("express");
-const multer  = require('multer');
+const multer = require('multer');
 const router = express.Router();
 
 const upload = multer();
@@ -12,21 +12,23 @@ router.get("/", controller.index);
 router.get("/create", controller.create);
 
 router.post(
-    "/create", 
-    upload.single("avatar"),
-    uploadCloud.upload,
-    validate.createPost,
-    controller.createPost
+  "/create",
+  upload.single("avatar"),
+  uploadCloud.upload,
+  validate.createPost,
+  controller.createPost
 );
+
+router.get("/detail/:id", controller.detail);
 
 router.get("/edit/:id", controller.edit);
 
 router.patch(
-    "/edit/:id",
-    upload.single("avatar"),
-    uploadCloud.upload,
-    validate.editPatch,
-    controller.editPatch
-  );
+  "/edit/:id",
+  upload.single("avatar"),
+  uploadCloud.upload,
+  validate.editPatch,
+  controller.editPatch
+);
 
 module.exports = router;

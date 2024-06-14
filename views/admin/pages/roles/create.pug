@@ -1,12 +1,18 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
 
 block main
     if(role.permissions.includes("roles_create"))
-        h1(class="mb-4") Thêm mới nhóm quyền
+        div(class="title-heading") Thêm mới nhóm quyền
+
+        +alert-success(5000)
+        +alert-error(5000)
 
         form(
             action=`${prefixAdmin}/roles/create`
             method="POST"
+            class="edit-common"
         )
             div(class="form-group")
                 label(for="title") Tiêu đề
@@ -25,8 +31,13 @@ block main
                     id="desc"
                     name="description"
                 )
-            div(class="form-group")
+            div(class="form-group mt-4")
+                a(
+                    href=`${prefixAdmin}/roles`
+                    class="btn btn-back me-4"
+                ) <i class="fa-solid fa-arrow-left"></i> Quay lại
+
                 button(
                     type="submit"
-                    class="btn btn-primary"
+                    class="btn btn-update"
                 ) Tạo mới

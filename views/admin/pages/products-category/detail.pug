@@ -1,0 +1,58 @@
+extends ../../layouts/default.pug
+include ../../mixins/moment.pug
+
+block main
+    div(class="title-heading") Danh sách danh mục con
+
+    .card.mb-3 
+        .card-body
+            .row.mb-4
+                .col-8  
+                    div(class="title-header") Danh mục cha:  #{category.title}
+                
+            if(childCategory.length > 0)
+                table(
+                    class="table  table-sm text-center align-middle table-common"
+                    checkbox-multi
+                    style="font-size: 14px"
+                )
+                    thead(style="font-size: 15px") 
+                        tr 
+                            th STT 
+                            th Hình ảnh 
+                            th Tiêu đề
+                            th Vị trí
+                            th Trạng thái 
+                            th Người tạo
+                            th Người cập nhật
+                    tbody
+                        each item, index in childCategory 
+                            tr 
+                                td #{index + 1}
+                                td
+                                    img(
+                                        src= item.thumbnail
+                                        alt= item.title
+                                        width="100px"
+                                        height="auto"
+                                    )
+                                td(class="text-start") #{prefix}#{item.title}
+                                td  #{item.position}
+                                td  #{item.status}
+                                td 
+                                    p #{item.accountFullname}
+                                    p 
+                                        +formatDate(item.createdBy.createdAt)
+                                td 
+                                    - const updatedBy = item.updatedBy.slice(-1)[0]
+                                    if(updatedBy)
+                                        p #{updatedBy.accountFullName}
+                                        p 
+                                            +formatDate(updatedBy.updatedAt)
+            else
+                div(class="empty-category") Danh mục không có danh mục con
+            
+            a(
+                href=`${prefixAdmin}/products-category`
+                class="btn btn-back"
+            ) <i class="fa-solid fa-arrow-left"></i> Quay lại

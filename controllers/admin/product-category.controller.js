@@ -89,6 +89,26 @@ module.exports.index = async (req, res) => {
     });
 };
 
+// [GET] /admin/products-category/detail/:id
+module.exports.detail = async (req, res) => {
+    const id = req.params.id;
+    const category = await ProductCategory.findOne({
+        _id: id,
+        deleted: false
+    })
+
+    const childCategory = await ProductCategory.find({
+        parent_id: id,
+        deleted: false
+    })
+
+    res.render("admin/pages/products-category/detail", {
+        title: "Chi tiết danh mục",
+        category: category,
+        childCategory: childCategory
+    })
+}
+
 // [GET] /admin/products-category/create
 module.exports.create = async (req, res) => {
     let find = {

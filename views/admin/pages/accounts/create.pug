@@ -3,7 +3,7 @@ include ../../mixins/alert.pug
 
 block main
     if(role.permissions.includes("accounts_create"))
-        h1(class="mb-4") Thêm mới tài khoản
+        div(class="title-heading") Thêm mới tài khoản
 
         +alert-error(5000)
 
@@ -11,6 +11,7 @@ block main
             action=`${prefixAdmin}/accounts/create`
             method="POST"
             enctype="multipart/form-data"
+            class="edit-common"
         )
             div(class="form-group")
                 label(for="fullName") Họ tên *
@@ -48,13 +49,13 @@ block main
                     name="phone"
                 )
             div(
-                class="form-group"
+                class="form-group mt-4"
                 upload-image
                 )
                 label(for="avatar") Avatar
                 input(
                     type="file"
-                    class="form-control-file"
+                    class="form-control-file ms-4"
                     id="avatar"
                     name="avatar"
                     accept="image/*"
@@ -62,12 +63,12 @@ block main
                 )
                 img(
                     src=""
-                    class="image-preview"
+                    class="image-preview ms-3"
                     upload-image-preview
                 )
-            div(class="form-group")
+            div(class="form-group mb-4")
                 label(for="role_id") Phân quyền
-                select(name="role_id" id="role_id" class="form-control")
+                select(name="role_id" id="role_id" class="form-control form-select mt-1")
                     option(disabled) -- Chọn --
                     each item in roles
                         option(value=item.id) #{item.title}
@@ -90,8 +91,13 @@ block main
                     value="inactive"
                 )
                 label(for="statusInActive" class="form-check-label") Dừng hoạt động
-            div(class="form-group")
+            div(class="form-group mt-4")
+                a(
+                    href=`${prefixAdmin}/accounts`
+                    class="btn btn-back me-4"
+                ) <i class="fa-solid fa-arrow-left"></i> Quay lại
+
                 button(
                     type="submit"
-                    class="btn btn-primary"
+                    class="btn btn-update"
                 ) Tạo mới

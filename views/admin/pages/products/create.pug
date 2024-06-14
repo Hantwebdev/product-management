@@ -5,13 +5,14 @@ include ../../mixins/select-tree.pug
 block main 
   if(role.permissions.includes("products_edit"))
     +alert-error(3000)
-    h1(class="mb-4") Thêm mới sản phẩm 
+    div(class="title-heading") Thêm mới sản phẩm 
 
     form(
         action=`${prefixAdmin}/products/create`
         id="form-create-product"
         method="POST"
         enctype="multipart/form-data"
+        class="edit-common"
     )
         div(class="form-group")
             label(for="title") Tiêu đề
@@ -32,7 +33,7 @@ block main
                     option(value="") -- Chọn danh mục --
                     if(category)
                         +select-tree(category)
-        div(class="form-group form-check form-check-inline")
+        div(class="form-group form-check form-check-inline mb-2 mt-4")
           input(
             type="radio"
             class="form-check-input"
@@ -117,7 +118,7 @@ block main
               placeholder="Tự động tăng"
               min="1"
             )
-        div(class="form-group form-check form-check-inline")
+        div(class="form-group form-check form-check-inline mb-2 mt-4")
             input(
               type="radio"
               class="form-check-input"
@@ -136,10 +137,15 @@ block main
               value="inactive"
             )
             label(for="statusInActive" class="form-check-label") Dừng hoạt động
-        div(class="form-group")
+        div(class="form-group mt-3")
+            a(
+              href=`${prefixAdmin}/products`
+              class="btn btn-back me-4"
+            ) <i class="fa-solid fa-arrow-left"></i> Quay lại
+
             button(
               type="submit"
-              class="btn btn-primary"
+              class="btn btn-update"
             ) Tạo mới
 
     script(src="/admin/js/product.js") 

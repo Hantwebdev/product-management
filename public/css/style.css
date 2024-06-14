@@ -433,6 +433,20 @@ a {
 }
 /* End Info user */
 
+/* Slick slider */
+.home-slider .slick-next {
+	background: #fff;
+	top: 256px;
+    right: -10px;
+}
+
+.home-slider .slick-prev {
+	background: #fff;
+	top: 256px;
+    left: -10px;
+}
+/* End Slick slider */
+
 /* Home */
 .home-slider {
 	width: 100%;
