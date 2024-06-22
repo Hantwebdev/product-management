@@ -31,7 +31,7 @@ router.get('/password/reset', controller.resetPassword);
 
 router.post('/password/reset', validate.resetPasswordPost, controller.resetPasswordPost);
 
-router.get('/info', authMiddleware.requireAuth, controller.info);
+router.get('/account', authMiddleware.requireAuth, controller.account);
 
 router.get('/edit/:id', authMiddleware.requireAuth, controller.edit);
 
@@ -45,6 +45,10 @@ router.patch('/edit/:id',
 router.get('/order/:id', authMiddleware.requireAuth, controller.getOrder);
 
 router.get('/password/change', controller.changePassword);
+
+router.get('/info/:id', controller.info);
+
+router.patch('/info/:id', controller.infoPatch);
 
 // router.post('/password/reset', validate.resetPasswordPost, controller.resetPasswordPost);
 

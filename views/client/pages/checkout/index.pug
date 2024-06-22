@@ -57,8 +57,8 @@ block main
                             class="checkout-detail"
                         )
                             div(class="checkout-title") Thông tin nhận hàng
-                            div(class="form-group mb-1 ")
-                                label(for="fullName") 
+                            div(class="form-group mb-3 ")
+                                label(for="fullName") Họ tên *
                                 input(
                                     type="text"
                                     class="form-control"
@@ -66,9 +66,10 @@ block main
                                     name="fullName"
                                     placeholder="Họ và tên *"
                                     required
+                                    value = user.fullName
                                 ) 
-                            div(class="form-group mb-1")
-                                label(for="phone") 
+                            div(class="form-group mb-3")
+                                label(for="phone") Số điện thoại *
                                 input(
                                     type="text"
                                     class="form-control"
@@ -76,9 +77,10 @@ block main
                                     name="phone"
                                     placeholder="Số điện thoại *"
                                     required
+                                    value = user.info.phone
                                 )
-                            div(class="form-group")
-                                label(for="address") 
+                            div(class="form-group mb-3")
+                                label(for="address") Địa chỉ *
                                 input(
                                     type="text"
                                     class="form-control"
@@ -86,6 +88,18 @@ block main
                                     name="address"
                                     placeholder="Địa chỉ *"
                                     required
+                                    value = user.info.address
+                                )
+                            div(class="form-group")
+                                label(for="province") Tỉnh/ Thành phố *
+                                input(
+                                    type="text"
+                                    class="form-control"
+                                    id="province"
+                                    name="province"
+                                    placeholder="Tỉnh/ Thành phố *"
+                                    required
+                                    value = user.info.province
                                 )
                             div(class="form-group text-center mt-3")
                                 button(

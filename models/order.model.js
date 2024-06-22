@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema(
     {
-        // user_id: String,
         cart_id: String,
         user_id: String,
         userInfo: {
             fullName: String,
             phone: String,
-            address: String
+            address: String,
+            province: String,
         },
         products: [
             {
@@ -23,6 +23,10 @@ const orderSchema = new mongoose.Schema(
         deleted: {
             type: Boolean,
             default: false,
+        },
+        status: {
+            type: String,
+            default: "Đang xử lý"
         },
         deletedAt: Date,
     },

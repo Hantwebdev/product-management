@@ -14,7 +14,7 @@ module.exports.register = async (req, res) => {
     });
 };
 
-// [GET] /user/register
+// [POST] /user/register
 module.exports.registerPost = async (req, res) => {
     const existEmail = await User.findOne({
         email: req.body.email
@@ -28,7 +28,11 @@ module.exports.registerPost = async (req, res) => {
 
     req.body.password = md5(req.body.password);
 
+
     const user = new User(req.body);
+
+    user.tokenUser = generateHelper.generateRandomString(20);
+
     await user.save();
 
     res.cookie("tokenUser", user.tokenUser);
@@ -228,9 +232,9 @@ module.exports.resetPasswordPost = async (req, res) => {
     res.redirect("/");
 };
 
-// [GET] /user/info
-module.exports.info = async (req, res) => {
-    res.render("client/pages/user/info", {
+// [GET] /user/account
+module.exports.account = async (req, res) => {
+    res.render("client/pages/user/account", {
         pageTitle: "Thông tin tài khoản",
     });
 };
@@ -280,3 +284,28 @@ module.exports.changePassword = async (req, res) => {
         pageTitle: "Đổi mật khẩu",
     });
 };
+
+// [GET] /user/info/:id
+module.exports.info = async (req, res) => {
+    res.render("client/pages/user/info", {
+        title: "Sổ địa chỉ"
+    })
+}
+
+// [PATCH] /user/info/:id
+module.exports.infoPatch = async (req, res) => {
+    const info = {
+        phone: req.body.phone,
+        address: req.body.address,
+        province: req.body.province
+    }
+
+    await User.updateOne(
+        { _id: req.params.id },
+        { info: info }
+    )
+
+    // req.flash("success", "Cập nhật thông tin thành công!");
+
+    res.redirect("back");
+}

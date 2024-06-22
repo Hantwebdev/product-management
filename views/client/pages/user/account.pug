@@ -1,0 +1,35 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+    .container.my-3
+        .row.block-profile
+            .col-3
+                .block-menu
+                    .title-account TRANG TÀI KHOẢN
+                    p Xin chào, 
+                        span(class="name-user") #{user.fullName} !
+                    ul 
+                        li(class="title-info")
+                            a(href="/user/account") Thông tin tài khoản
+                        li(class="title-info")
+                            a(href=`/user/edit/${user.id}`) Cập nhật tài khoản
+                        li(class="title-info")
+                            a(href=`/user/order/${user.id}`) Đơn hàng của bạn
+                        li(class="title-info")
+                            a(href=`/user/info/${user.id}`) Sổ địa chỉ
+                        li(class="title-info")
+                            a(href="/user/password/change") Đổi mật khẩu
+
+            .col-9
+                .block-info 
+                    .block-content 
+                        .img-account
+                            if(user.avatar)
+                                img(
+                                    src=user.avatar
+                                )
+                        .info-account 
+                            .title-account THÔNG TIN TÀI KHOẢN
+                            .name-account <b>Họ tên:</b> #{user.fullName}
+                            .email-account <b>Email:</b> #{user.email}

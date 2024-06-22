@@ -28,6 +28,13 @@
                         .sider-icon
                             <i class="fa-solid fa-user-group"></i>
                         a(href=`${prefixAdmin}/accounts`) Danh sách tài khoản
+
+            if(role.permissions.includes("orders_view"))
+                li 
+                    div(class="sider-item" data-nav="orders")
+                        .sider-icon
+                            <i class="fa-solid fa-user-group"></i>
+                        a(href=`${prefixAdmin}/orders`) Danh sách đơn hàng
                         
             if(role.permissions.includes("roles_view"))
                 li 

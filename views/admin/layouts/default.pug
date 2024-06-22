@@ -9,6 +9,7 @@ html
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css")
+
     body
         if(role.permissions.length > 0)
 
@@ -30,7 +31,16 @@ html
             script(src="/tinymce/tinymce.min.js") 
             script(src="/admin/js/tinymce-config.js") 
             //- End TinyMCE
+
+            //- SocketIO
+            script(src="/socket.io/socket.io.js")
+            script(src="/js/socket.js")
+            
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            
             script(src="/admin/js/script.js") 
+
+            block script
         
         else 
             h1 Bạn không có quyền truy cập

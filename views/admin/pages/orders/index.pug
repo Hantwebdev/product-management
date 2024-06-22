@@ -1,0 +1,73 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/moment.pug
+
+block main
+    if(role.permissions.includes("orders_view"))
+        +alert-success(5000)
+        +alert-error(5000)
+
+        div(class="title-heading") Đơn hàng
+
+        .card.mb-3
+            .card-body
+                .row.mb-4
+                    .col-8
+                        div(class="title-header") Danh sách
+                if(orders.length > 0)
+                    table(class="table table-bordered text-center align-middle table-order")
+                        thead
+                            tr
+                                th STT
+                                th Khách hàng
+                                th Số điện thoại
+                                th Thành phố
+                                th Đơn hàng
+                                th Ngày tạo
+                                th Thanh toán
+                                th Trạng thái
+                        tbody
+                            each item, index in orders
+                                tr
+                                    td #{index + 1}
+                                    td 
+                                        div #{item.userInfo.fullName}
+                                    td 
+                                        div #{item.userInfo.phone}
+                                    td 
+                                        div #{item.userInfo.province}
+                                    td
+                                        each product in item.products
+                                            div(class = "item-content")
+                                                div #{product.name}
+                                                div x #{product.quantity}
+                                    td  
+                                        div 
+                                            +formatDate(item.createdAt)
+                                    td 
+                                        div #{item.priceOrder.toLocaleString()}₫
+                                    
+                                    td 
+                                        div
+                                            select(
+                                                class="form-control form-select list-status"
+                                                name = "status"
+                                                id = item.id
+                                                status = item.status
+                                                style="font-size: 14px"
+                                                
+                                            )
+                                                option(value = "pending") Đang xử lý
+                                                option(value = "confirm") Đã xác nhận 
+                                                option(value = "shipping") Đang giao 
+                                                option(value = "success") Thành công 
+                                                option(value = "cancel") Đã huỷ
+                else  
+                    div(style="font-size: 15px") Không có đơn hàng nào.
+
+        form(
+            action = "",
+            method = "POST"
+            id = "form-order-status",
+            data-path = `${prefixAdmin}/orders/change-status`
+        )

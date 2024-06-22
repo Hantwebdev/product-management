@@ -28,7 +28,9 @@ module.exports.create = async (req, res) => {
         }).select("fullName avatar");
 
         friend.infoFriend = infoFriend;
+
     }
+
     res.render("client/pages/rooms-chat/create", {
         pageTitle: "Tạo phòng",
         friendList: friendList

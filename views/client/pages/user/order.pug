@@ -15,11 +15,13 @@ block main
                         span(class="name-user") #{user.fullName} !
                     ul 
                         li(class="title-info")
-                            a(href="/user/info") Thông tin tài khoản
+                            a(href="/user/account") Thông tin tài khoản
                         li(class="title-info")
                             a(href=`/user/edit/${user.id}`) Cập nhật tài khoản
                         li(class="title-info")
                             a(href=`/user/order/${user.id}`) Đơn hàng của bạn
+                        li(class="title-info")
+                            a(href=`/user/info/${user.id}`) Sổ địa chỉ
                         li(class="title-info")
                             a(href="/user/password/change") Đổi mật khẩu
 
@@ -36,6 +38,7 @@ block main
                                             th Đơn hàng
                                             th Ngày tạo
                                             th Giá trị đơn hàng
+                                            th Trạng thái
                                     tbody
                                         each item, index in order
                                             tr
@@ -50,6 +53,8 @@ block main
                                                         +formatDate(item.createdAt)
                                                 td 
                                                     div #{item.priceOrder.toLocaleString()}₫
+                                                td 
+                                                    div #{item.status}
                             
                             else  
                                 div(style="font-size: 15px") Không có đơn hàng nào.

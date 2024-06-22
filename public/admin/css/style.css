@@ -336,6 +336,25 @@ a {
     height: 150px;
 }
 
+
+.table-order {
+	font-size: 14px;
+}
+
+.table-order th {
+	font-size: 15px;
+}
+
+.table-order .item-content {
+	display: flex;
+	justify-content: space-between;
+	padding: 5px 10px;
+}
+
+.table-order i {
+    color: #344767;
+}
+
 /* edit-common */
 .edit-common {
     padding-right: 40px;
@@ -839,3 +858,90 @@ input[type="radio"]:checked {
 	color: #d62b08;
 }
 /* End sub-menu */
+
+/* Dashboard */
+.statistic {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 30px;
+}
+
+.statistic-item {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 30% 70%;
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+}
+
+.statistic-item-icon {
+    /* background-color: rgb(249, 250, 251); */
+    border-radius: 999px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.statistic-item-icon i {
+    color: #cb0c9f;
+    font-size: 30px;
+}
+
+.statistic-item-info {
+    text-align: end;
+}
+
+.statistic-item-digits {
+    font-size: 21px;
+    font-weight: 800;
+    color: #344767;
+    margin-bottom: 5px;
+}
+
+.statistic-item-name {
+    font-weight: 500;
+    color: #344767;
+}
+
+.statitisTable {
+    /* display: flex;
+    flex-direction: column; */
+    background: #fff;
+    padding: 5px 20px 0;
+    font-size: 14px;
+}
+
+.statitisTable .title {
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: #344767;
+}
+
+.loyalCustomer {
+    padding: 0 25px;
+    gap: 20px;
+    display: flex;
+}
+
+.statitisTableAvatar {
+    width: 40px;
+    height: 40px;
+}
+
+.statitisTableAvatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    object-fit: cover;
+}
+
+.customer-info {
+    text-align: start;
+}
+/* End Dashboard */

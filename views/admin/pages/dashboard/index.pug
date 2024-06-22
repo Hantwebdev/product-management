@@ -1,51 +1,140 @@
 extends ../../layouts/default.pug
+include ../../mixins/moment.pug
 
 block main
-    h1 Trang tổng quan
+    div(class="title-heading") Trang tổng quan
 
     .row.mt-4 
+        .col-12.mb-5 
+            .statistic
+                //- Thống kê tổng doanh thu
+                .statistic-item 
+                    .statistic-item-icon 
+                        <i class="fa-solid fa-chart-simple"></i>
+                    .statistic-item-info 
+                        .statistic-item-digits #{statistic.revenue.toLocaleString()}
+                        .statistic-item-name Doanh thu
+                //- Thống kê tổng đơn hàng
+                .statistic-item 
+                    .statistic-item-icon 
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    .statistic-item-info 
+                        .statistic-item-digits #{statistic.order}
+                        .statistic-item-name Đơn hàng
+                //- Thống kê tổng khách hàng
+                .statistic-item 
+                    .statistic-item-icon 
+                        <i class="fa-solid fa-address-book"></i>
+                    .statistic-item-info 
+                        .statistic-item-digits #{statistic.user}
+                        .statistic-item-name Khách hàng
+                //- Thống kê tổng sản phẩm
+                .statistic-item 
+                    .statistic-item-icon 
+                        <i class="fa-solid fa-file"></i>
+                    .statistic-item-info 
+                        .statistic-item-digits #{statistic.product}
+                        .statistic-item-name Sản phẩm
+                //- Thống kê tổng danh mục
+                .statistic-item 
+                    .statistic-item-icon 
+                        <i class="fa-solid fa-layer-group"></i>
+                    .statistic-item-info 
+                        .statistic-item-digits #{statistic.category}
+                        .statistic-item-name Danh mục
+    .row.mt-2   
+        .col-7.chartRevenueOfMonth 
+            canvas( 
+                id="chartRevenueOfMonth" 
+                data=dataRevenueOfMonth
+            )
+        .col-5.statitisTable
+            .title Top #5 khách hàng thân thiết
+            table(
+                    class="table table-sm text-center align-middle"
+                )
+                    thead(style: "font-size: 15px")
+                        tr
+                            th STT
+                            th Thông tin
+                            th Tỉnh
+                            th Lượt mua
+
+                    tbody
+                        each loyalCustomer, index in dataloyalCustomers
+                                    tr
+                                        td #{index + 1}
+                                        td
+                                            .loyalCustomer 
+                                                .statitisTableAvatar
+                                                        if(loyalCustomer.avatar)
+                                                            img(src =loyalCustomer.avatar alt =loyalCustomer.fullName)
+                                                .customer-info
+                                                    .customer-name #{loyalCustomer.fullName}
+                                                    .customer-phone #{loyalCustomer.phone}
+                                        td  #{loyalCustomer.province}
+                                        td  #{loyalCustomer.purchases}
+
+    .row.mt-4   
+        .col-7.chartOrderOfMonth 
+            canvas( 
+                id="chartOrderOfMonth" 
+                data=dataOrderOfMonth
+            )
+        .col-5.statitisTable
+            .title #5 Đơn hàng mới nhất
+            table(
+                    class="table table-sm text-center align-middle"
+                )
+                    thead(style: "font-size: 15px")
+                        tr
+                            th STT
+                            th Thông tin
+                            th Tỉnh
+                            th Ngày đặt
+                            th Doanh thu
+
+                    tbody
+                        each order, index in listNewestOrder
+                                    tr
+                                        td #{index + 1}
+                                        td
+                                            .customer-info
+                                                div #{order.userInfo.fullName}
+                                                div #{order.userInfo.phone}
+                                        td  #{order.userInfo.province}
+                                        td 
+                                            +formatDate(order.createdAt)
+                                        td  #{order.priceOrder.toLocaleString()}₫
+    .row.mt-4    
+        .col-6 
+            canvas( 
+                id="chartTotalTypeProduct" 
+                data=totleTypeProduct
+            )
+        .col-6 
+            canvas( 
+                id="chartStatusOrder" 
+                data=dataStatusOrder
+            )
+
+    .row.mt-4    
         .col-12 
-            .card.mb-4 
-                .card-header Thông tin tài khoản
-                .card-body 
-                    if(user.avatar)
-                        img(
-                            src=user.avatar 
-                            style="height: 100px; margin-bottom: 15px;"
-                        )
-                    if(user.fullName)
-                        p Họ tên: <b>#{user.fullName}</b>
-                    if(user.email)
-                        p Email: <b>#{user.email}</b>
-                    if(user.phone)
-                        p Số điện thoại: <b>#{user.phone}</b>
-                    if(role.title)
-                        p Phân quyền: <b>#{role.title}</b>
-        .col-6 
-            .card.mb-4 
-                .card-header Danh mục sản phẩm 
-                .card-body 
-                    p Số lượng: <b>#{statistic.categoryProduct.total}</b>
-                    p Hoạt động: <b>#{statistic.categoryProduct.active}</b>
-                    p Dừng hoạt động: <b>#{statistic.categoryProduct.inactive}</b>
-        .col-6 
-            .card.mb-4 
-                .card-header Sản phẩm 
-                .card-body 
-                    p Số lượng: <b>#{statistic.product.total}</b>
-                    p Hoạt động: <b>#{statistic.product.active}</b>
-                    p Dừng hoạt động: <b>#{statistic.product.inactive}</b>
-        .col-6 
-            .card.mb-4 
-                .card-header Tài khoản admin 
-                .card-body 
-                    p Số lượng: <b>#{statistic.account.total}</b>
-                    p Hoạt động: <b>#{statistic.account.active}</b>
-                    p Dừng hoạt động: <b>#{statistic.account.inactive}</b>
-        .col-6 
-            .card.mb-4 
-                .card-header Tài khoản client
-                .card-body 
-                    p Số lượng: <b>#{statistic.user.total}</b>
-                    p Hoạt động: <b>#{statistic.user.active}</b>
-                    p Dừng hoạt động: <b>#{statistic.user.inactive}</b>
+            canvas( 
+                id="chartRenevueOfProvince" 
+                data=dataRevenueOfProvince
+            )
+
+    .row.mt-4    
+        .col-12 
+            canvas( 
+                id="chartproductsSold" 
+                data=dataProductsSold
+            )
+
+    .row.mt-4    
+        .col-12 
+            canvas( 
+                id="chartproductsInventoty" 
+                data=dataProductsInventory
+            )

@@ -164,7 +164,8 @@ module.exports.category = async (req, res) => {
         deleted: false
     })
 
-    const listSubCategory = await productsCategoryHelper.getSubCategory(category.id);
+
+    const listSubCategory = await productsCategoryHelper.getSubCategory(category._id);
 
     const listSubCategoryId = listSubCategory.map(item => item.id);
 
