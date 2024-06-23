@@ -33,8 +33,8 @@ block main
                         each item, index in records
                             tr(style="padding: 10px") 
                                 td  #{index+1}
-                                td  
-                                    .thumbnail-account
+                                td 
+                                    .thumbnail-account(style="margin: 0 auto") 
                                         img(
                                             src=item.avatar
                                             alt=item.fullName
@@ -45,31 +45,34 @@ block main
                                 td #{item.email}
                                 td
                                     if(role.permissions.includes("accounts_edit"))
-                                        if (item.status === "active")
-                                            a(
-                                                href="javascript:;"
-                                                data-status="active"
-                                                class = "button-status-active"
-                                            ) Active
+                                        if(item.status === "active")
+                                            | Hoạt động
                                         else
-                                            a(
-                                                href="javascript:;"
-                                                class = "button-status-inactive"
-                                                data-status="inactive"
-                                            ) Inactive
+                                            | Dừng hoạt động
                                 td
                                     .button-action
                                         if(role.permissions.includes("accounts_view"))
                                             a(
                                                 class="btn btn-detail btn-sm"
                                                 href=`${prefixAdmin}/accounts/detail/${item.id}`
-                                            ) <i class="fa-solid fa-circle-info"></i> DETAIL
+                                            ) <i class="fa-solid fa-circle-info"></i> 
                                         if(role.permissions.includes("accounts_edit"))
                                             a(
                                                 class="btn btn-edit btn-sm ms-1"
                                                 href=`${prefixAdmin}/accounts/edit/${item.id}`
-                                            ) <i class="fa-solid fa-pencil"></i> EDIT
+                                            ) <i class="fa-solid fa-pencil"></i> 
                                         if(role.permissions.includes("accounts_delete"))
                                             button(
                                                 class="btn btn-delete btn-sm ms-1"
-                                            ) <i class="fa-solid fa-trash"></i> DETELE 
+                                                button-delete
+                                                data-id = item.id
+                                            ) <i class="fa-solid fa-trash"></i> 
+
+        form(
+            action="" 
+            method="POST"
+            id="form-delete-account"
+            data-path=`${prefixAdmin}/accounts/delete`
+        )   
+
+        script(src="/admin/js/account.js")

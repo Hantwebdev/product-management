@@ -123,3 +123,20 @@ module.exports.editPatch = async (req, res) => {
 
   res.redirect("back");
 };
+
+
+// [DELETE] /admin/accounts/delete/:id
+module.exports.delete = async (req, res) => {
+  const id = req.params.id;
+
+  // Xoá mềm
+  await Account.updateOne(
+    { _id: id },
+    {
+      deleted: true,
+    }
+  );
+  req.flash("success", `Đã xoá thành công sản phẩm`);
+
+  res.redirect("back");
+};

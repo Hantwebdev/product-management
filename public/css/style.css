@@ -196,26 +196,9 @@ a {
 }
 
 .box-head .inner-title {
-	/* margin-bottom: 0;
-	font-size: 25px;
-	font-weight: 800;
-    color: var(--secondary-color);
-	position: relative;
-	padding-bottom: 7px; */
 	font-weight: 600;
 	font-size: 22px;
 }
-
-/* .box-head .inner-title::after {
-	content: "";
-    width: 100px;
-    height: 2px;
-    background: var(--background-main-color);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-} */
 
 /* Filter */
 .filter-type {
@@ -273,12 +256,6 @@ a {
 	color: #fff;
 }
 /* End Filter */
-
-
-/* form-fill */
-/* .form-fill {
-	background: #00d800;
-} */
 
 .form-fill .text-title {
 	font-size: 25px;
@@ -358,10 +335,6 @@ a {
 	justify-content: space-between;
 	padding: 5px 30px;
 }
-
-
-
-
 /* end form-fill */
 
 /* Info user */
@@ -492,8 +465,6 @@ a {
 .product-item .inner-image {
 	height: 330px;
 	width: 250px;
-	/* height: 450px;
-	width: 100%; */
 	aspect-ratio: 4/3;
 	border-bottom: 1px solid #ddd;
 	position: relative;
@@ -584,15 +555,12 @@ a {
 	background: #fff;
 	border-radius: 5px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	/* background: #eae9e9; */
 	width: 200px;
 	display: none;
 }
 
-
 .sub-menu ul li {
 	padding: 5px 10px;
-	/* border-bottom: 1px solid #ddd; */
 }
 
 .sub-menu:hover > ul {
@@ -699,7 +667,6 @@ a {
 
 .product-detail .inner-stock span {
 	color: #000;
-	/* background: green; */
 	font-weight: 600;
 	display: inline-block;
 	padding: 3px 6px;
@@ -745,7 +712,6 @@ a {
     margin: 0;
 }
 /* End product-detail */
-
 
 /* accordions */
 .accordion-list {
@@ -821,6 +787,11 @@ a {
 .product-info-detail {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
+}
+
+.product-info-container {
+	display: flex;
 }
 
 .product-info-img {
@@ -835,10 +806,6 @@ a {
 	object-fit: cover;
 }
 
-.product-info-content {
-	margin-right: 480px;
-}
-
 .product-info-content .product-info-name {
 	line-height: 1.4;
     color: #191919;
@@ -847,12 +814,6 @@ a {
     font-weight: 500;
     margin-top: 0;
     margin-bottom: 4px;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    white-space: initial;
-    overflow: hidden;
     padding: 2px 0;
 }
 
@@ -929,7 +890,6 @@ a {
 /* Cart */
 .cart {
 	position: relative;
-	/* padding: 30px; */
 }
 
 .cart:hover .list-item {
@@ -1162,7 +1122,6 @@ a {
 /* End Checkout */
 
 /* Form quantity item */
-
 .form-quantity-item {
 	margin: 30px 0;
 }
@@ -1375,6 +1334,30 @@ a {
 	flex: 1;
 }
 /* end product-policises */
+.button-create-roomChat {
+	border: solid 1px #000;
+}
+
+.button-create-roomChat:hover {
+	background: #000;
+	color: #fff;
+}
+
+.list-btn-users a, .button-create-room a {
+	border: solid 1px #000;
+	background: #fff;
+	color: #000;
+}
+
+.list-btn-users a:hover, .button-create-room a:hover {
+	background: #191919;
+	color: #fff;
+}
+
+.list-btn-users span {
+	padding-left: 5px;
+}
+
 /* chat */
 .chat {
 	border: 1px solid #ddd;
@@ -1382,13 +1365,13 @@ a {
 }
 
 .chat .inner-body {
-	padding: 10px;
-	max-height: 450px;
+	padding: 30px;
+	height: 430px;
 	overflow-y: auto;
 }
 
 .chat .inner-body .inner-name {
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .chat .inner-body .inner-content {
@@ -1400,26 +1383,27 @@ a {
 	line-height: 1.4;
 }
 
-.chat .inner-body .inner-outgoing .inner-content {
-	margin-left: auto;
-}
-
 .chat .inner-incoming .inner-content {
-	max-width: 45%;
-	padding: 10px;
+	display: inline-block;
+	max-width: 450px;
+	padding: 10px 20px;
 	margin: 5px 0 10px;
 	background: #f0f0f0;
-	border-radius: 15px;
+	border-radius: 9999px;
 }
 
-.chat .inner-outgoing .inner-content {
-	max-width: 45%;
-	padding: 10px;
-	margin-left: auto;
-	background: #fe5da3;
+.chat  .inner-body .inner-outgoing {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.chat  .inner-body .inner-outgoing .inner-content {
+	max-width: 450px;
+	padding: 10px 20px;
+	background: #191919;
 	color: #fff;
 	margin: 5px 0;
-	border-radius: 15px;
+	border-radius: 9999px;
 }
 
 .chat .inner-foot {
@@ -1443,31 +1427,21 @@ a {
 
 .chat .inner-form button {
 	border-radius: 15px;
-	border: 1px solid #fe5da3;
-	background: #fe5da3;
+	border: 1px solid #000;
+	background: #000;
 	color: #fff;
 	height: 32px;
 	padding: 0 10px;
 	cursor: pointer;
 }
 
+
 .chat .inner-body .inner-images img {
-	width: 80px;
-	height: 80px;
-	object-fit: contain;
+	width: 140px;
+	height: 160px;
+	object-fit: cover;
 	background: #efefef;
-	padding: 10px;
-	margin: 0 5px 5px 0;
 	border-radius: 5px;
-}
-
-.chat .inner-body .inner-outgoing .inner-images {
-	margin-left: auto;
-	text-align: right;
-}
-
-.chat .inner-body .inner-outgoing .inner-images img {
-	margin: 0 0 5px 5px;
 }
 
 .chat .inner-preview-images {

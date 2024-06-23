@@ -2,7 +2,6 @@ const ProductCategory = require("../../models/product-category.model");
 const Account = require("../../models/account.model");
 const systemConfig = require("../../config/system");
 
-const paginationHelper = require("../../helpers/pagination");
 const createTreeHelper = require("../../helpers/createTree");
 const filterStatusHelper = require("../../helpers/filterStatus");
 
@@ -38,24 +37,8 @@ module.exports.index = async (req, res) => {
     }
     // End Sort
 
-    // Pagination
-    const countProductCategory = await ProductCategory.countDocuments(find);
-
-    let objectPagination = paginationHelper(
-        {
-            limitItems: 10,
-            currentPage: 1,
-        },
-        req.query,
-        countProductCategory
-    );
-    // End Pagination
-
-
     const records = await ProductCategory.find(find)
         .sort(sort)
-        .limit(objectPagination.limitItems)
-        .skip(objectPagination.skip);
 
     for (const record of records) {
         // Lấy in4 ng tạo
@@ -84,8 +67,7 @@ module.exports.index = async (req, res) => {
         pageTitle: "Danh mục sản phẩm",
         records: newRecords,
         filterStatus: filterStatus,
-        keyword: keyword,
-        pagination: objectPagination,
+        keyword: keyword
     });
 };
 

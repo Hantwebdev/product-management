@@ -278,27 +278,23 @@ a {
 }
 
 /* .button-action  */
-/* .button-action {
-    display: flex;
-    gap: 5px;
-} */
 
 .button-action a, .button-action button {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 700;
 }
 
+.button-action .btn-detail i {
+    font-size: 18px;
+}
+
 .button-action .btn-detail {
-    color: #344767;
+    color: #117A65 ;
 }
 
 .button-action .btn-detail:hover {
-    background: #344767;
+    background: #117A65 ;
     color: #fff;
-}
-
-.button-action .btn-detail i {
-    font-size: 14px;
 }
 
 .button-action .btn-edit {
@@ -411,24 +407,6 @@ input[type="radio"]:checked {
 /* file upload button active state */
 .edit-common input[type="file"]::file-selector-button:active {
     background-color: #e5e7eb;
-}
-
-/* button-change-status */
-.button-status-active {
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 600;
-    background: #2E8B57;
-    color: #fff;
-}
-.button-status-inactive {
-    padding: 8px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 600;
-    background: #DC143C;
-    color: #fff;
 }
 
 .btn-update, .btn-back{
@@ -944,4 +922,44 @@ input[type="radio"]:checked {
 .customer-info {
     text-align: start;
 }
+
+.export-report {
+    font-size: 15px;
+}
+
+/* file upload button */
+.export-report input[type="file"]::file-selector-button {
+    border-radius: 4px;
+    padding: 0 10px;
+    height: 30px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin: 0 8px 0 5px;
+    transition: background-color 200ms;
+}
+  
+  /* file upload button hover state */
+.export-report input[type="file"]::file-selector-button:hover {
+    background-color: #344767;
+    color: #fff;
+}
+  
+  /* file upload button active state */
+.export-report input[type="file"]::file-selector-button:active {
+    background-color: #e5e7eb;
+}
+
+.export-report button, .export-report button:hover {
+    font-size: 14px;
+    background: #344767;
+    color: #fff;
+}
+
+.export-report button i {
+    margin-right: 5px;
+    font-size: 13px;
+}
+  
 /* End Dashboard */

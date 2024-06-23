@@ -25,20 +25,22 @@ if (buttonChangeStatus.length > 0) {
     const path = formChangeStatus.getAttribute("data-path");
 
     buttonChangeStatus.forEach((button) => {
-        button.addEventListener("click", () => {
-            const statusCurrent = button.getAttribute("data-status");
+        button.addEventListener("change", (e) => {
+            const statusCurrent = e.target.value;
             const id = button.getAttribute("data-id");
 
-            let statusChange =
-                statusCurrent == "active" ? "inactive" : "active";
-
-            const action = path + `/${statusChange}/${id}?_method=PATCH`;
+            const action = path + `/${statusCurrent}/${id}?_method=PATCH`;
 
             formChangeStatus.action = action;
 
             formChangeStatus.submit();
         });
     });
+    buttonChangeStatus.forEach(item => {
+        const status = item.getAttribute("data-status");
+        const optionSelected = item.querySelector(`option[value='${status}']`);
+        optionSelected.selected = true;
+    })
 }
 // End Change Status
 
@@ -51,7 +53,7 @@ if (buttonsDelete.length > 0) {
 
     buttonsDelete.forEach((button) => {
         button.addEventListener("click", () => {
-            const isConfirm = confirm("Bạn có chắc muốn xoá sản này không?");
+            const isConfirm = confirm("Bạn có chắc muốn xoá sản phẩm này không?");
 
             if (isConfirm) {
                 const id = button.getAttribute("data-id");

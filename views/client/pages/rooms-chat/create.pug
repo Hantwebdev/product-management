@@ -14,7 +14,7 @@ block main
                     method="POST"
                 ) 
                     div(class="form-group")
-                        label(for="title") Tiêu đề
+                        label(for="title") ** Tiêu đề
                         input(
                             type="text"
                             class="form-control"
@@ -22,8 +22,8 @@ block main
                             name="title"
                             required
                         )
-                    div(class="form-group")
-                        label Thêm thành viên
+                    div(class="form-group mt-3")
+                        label ** Thêm thành viên
                         each friend in friendList 
                             div(class="form-check")
                                 input(
@@ -41,5 +41,5 @@ block main
                     div(class="form-group")
                         button(
                             type="submit"
-                            class="btn btn-primary"
-                        ) Tạo
+                            class="btn mt-3 button-create-roomChat "
+                        ) Tạo phòng

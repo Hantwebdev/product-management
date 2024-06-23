@@ -111,17 +111,18 @@ block main
 
             div(class="product-info")
                 div(class="product-info-detail")
-                    div(class="product-info-img")
-                        img(src=product.thumbnail alt=product.title)
-                    div(class="product-info-content") 
-                        span(class="product-info-name") #{product.title}
-                        div(class="price-box")  
-                            span(class="special-price") #{product.priceNew.toLocaleString()}₫
-                            span(class="old-price") #{product.price.toLocaleString()}₫
-                            span(class="discount-price") -#{product.discountPercentage}%
-                        div(class="save-price")
-                            - var save_price = product.price - product.priceNew
-                            | (Tiết kiệm #{save_price.toLocaleString()}₫)
+                    div(class="product-info-container")
+                        div(class="product-info-img")
+                            img(src=product.thumbnail alt=product.title)
+                        div(class="product-info-content") 
+                            span(class="product-info-name") #{product.title}
+                            div(class="price-box")  
+                                span(class="special-price") #{product.priceNew.toLocaleString()}₫
+                                span(class="old-price") #{product.price.toLocaleString()}₫
+                                span(class="discount-price") -#{product.discountPercentage}%
+                            div(class="save-price")
+                                - var save_price = product.price - product.priceNew
+                                | (Tiết kiệm #{save_price.toLocaleString()}₫)
                         
                     div(class="product_info_buttons")
                         span(class="product_info_label") Số lượng:

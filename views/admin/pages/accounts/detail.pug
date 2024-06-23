@@ -15,7 +15,11 @@ block main
                 .info-account <b>Email:</b> #{account.email}
                 .info-account <b>Số điện thoại:</b> #{account.phone}
                 .info-account <b>Phân quyền:</b> #{role.title}
-                .info-account <b>Trạng thái:</b> #{account.status}
+                .info-account 
+                    if(account.status === "active")
+                        <b>Trạng thái:</b> Hoạt động
+                    else
+                        <b>Trạng thái:</b> Dừng hoạt động
 
                 a(
                     href=`${prefixAdmin}/accounts`

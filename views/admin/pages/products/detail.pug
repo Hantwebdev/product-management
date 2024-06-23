@@ -12,8 +12,7 @@ block main
                     h3(class="inner-title") #{product.title}
 
                     div(class="inner-category")
-                        span Danh mục: 
-                        a(href=`${prefixAdmin}/products/${category.slug}`) #{category.title}
+                        span Danh mục: #{category.title}
 
                     span(class="inner-price-new") #{product.priceDiscount.toLocaleString()}₫
 
@@ -30,7 +29,11 @@ block main
                         div(class="inner-position") Vị trí: #{product.position}
 
                     if (product.status)
-                        div(class="inner-status") Trạng thái: #{product.status}
+                        div(class="inner-status")
+                            if(product.status == "active")
+                                | Trạng thái: Hoạt động
+                            else
+                                | Trạng thái: Dừng hoạt động
 
                     
                     div(class="accordion-list")

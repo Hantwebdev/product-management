@@ -8,14 +8,14 @@ block main
                 +box-head("Danh sách phòng")
 
         .row.mb-3 
-            .col-12 
+            .col-12.button-create-room 
                 a(
                     href="/rooms-chat/create"
-                    class="btn btn-sm btn-success me-1"
-                ) Tạo phòng chat 
+                    class="btn btn-sm me-1"
+                ) <i class="fa-solid fa-plus"></i> Tạo phòng chat 
         .row
             each room in listRoomChat 
-                .col-6 
+                .col-3 
                     div(class="box-room")
                         div(class="inner-avatar")
                             img(

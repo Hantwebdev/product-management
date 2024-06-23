@@ -29,7 +29,7 @@ module.exports.index = async (req, res) => {
 
     let objectPagination = paginationHelper(
         {
-            limitItems: 6,
+            limitItems: 10,
             currentPage: 1,
         },
         req.query,
